@@ -1,120 +1,81 @@
 import { cargarProductos } from './productos.js'
-import {
-    renderizarCatalogo,
-    filtrarPorTalle,
-    filtrarPorCategoria,
-    filtrarPorTexto,
-    obtenerCarrito,
-    guardarCarrito
-} from './funciones.js'
+import { renderizarCatalogo } from './catalogo-renderizado.js'
+import { filtrarPorTalle, filtrarPorCategoria, filtrarPorTexto } from './catalogo-filtros.js'
+import { obtenerCarrito, guardarCarrito } from './carrito-persistencia.js'
+import { agregarProducto } from './carrito-reglas.js'
+import { actualizarContadorCarrito } from './carrito-renderizado.js'
 
-let productosEnCarro = obtenerCarrito()
-let productosUrban = []
-let productosCargados = false
-
-const contenedorProductos = document.getElementById("contenedor-productos")
-const dialogo = document.getElementById('dialogo')
-const productosSeleccionados = document.getElementById('productos-seleccionados')
-const botonFiltrar = document.getElementById('boton-aplicar-filtros')
-const botonLimpiar = document.getElementById('boton-limpiar-filtros')
-const selectCategoria = document.getElementById('filtro-categoria')
-const selectTalle = document.getElementById('filtro-talle')
-const buscar = document.getElementById('buscar-nav')
-
-try {
-    productosUrban = await cargarProductos()
-    productosCargados = true
-} catch (error) {
-    console.error(error)
-    if (contenedorProductos) {
-        contenedorProductos.innerHTML = '<p role="alert">No se pudieron cargar los productos. Intentá recargar la página.</p>'
+async function inicializarCatalogo() {
+    const elementos = {
+        contenedor: document.getElementById('contenedor-productos'),
+        dialogo: document.getElementById('dialogo'),
+        contador: document.getElementById('productos-seleccionados'),
+        botonFiltrar: document.getElementById('boton-aplicar-filtros'),
+        botonLimpiar: document.getElementById('boton-limpiar-filtros'),
+        categoria: document.getElementById('filtro-categoria'),
+        talle: document.getElementById('filtro-talle'),
+        buscar: document.getElementById('buscar-nav')
     }
-}
+    let productos
 
-// inicializar el contador en el header con la cantidad actual (inicia en 0 si está vacío).
-if (productosSeleccionados) {
-    productosSeleccionados.textContent = `(${productosEnCarro.reduce((total, item) => total + item.cantidad, 0)})`
-}
-
-// renderizamos el catálogo completo.
-if (productosCargados) {
-    const parametros = new URLSearchParams(window.location.search)
-    if (buscar) buscar.value = parametros.get('q') || ''
-    actualizarCatalogo()
-}
-
-function actualizarCatalogo() {
-    if (!productosCargados) {
+    try {
+        productos = await cargarProductos()
+    } catch (error) {
+        console.error(error)
+        if (elementos.contenedor) elementos.contenedor.innerHTML = '<p role="alert">No se pudieron cargar los productos. Intentá recargar la página.</p>'
         return
     }
 
-    let productosFiltrados = filtrarPorTexto(productosUrban, buscar?.value || '')
+    const carrito = obtenerCarrito()
+    actualizarContadorCarrito(elementos.contador, carrito)
 
-    if (selectCategoria && selectCategoria.value !== 'todas') {
-        productosFiltrados = filtrarPorCategoria(productosFiltrados, selectCategoria.value)
+    function actualizarCatalogo() {
+        let productosFiltrados = filtrarPorTexto(productos, elementos.buscar?.value || '')
+        if (elementos.categoria && elementos.categoria.value !== 'todas') {
+            productosFiltrados = filtrarPorCategoria(productosFiltrados, elementos.categoria.value)
+        }
+        if (elementos.talle && elementos.talle.value !== 'todos') {
+            productosFiltrados = filtrarPorTalle(productosFiltrados, elementos.talle.value)
+        }
+        renderizarCatalogo(elementos.contenedor, productosFiltrados)
+        enlazarEventosProductos(elementos, productos, carrito)
     }
 
-    if (selectTalle && selectTalle.value !== 'todos') {
-        productosFiltrados = filtrarPorTalle(productosFiltrados, selectTalle.value)
-    }
-
-    renderizarCatalogo(contenedorProductos, productosFiltrados)
-    asignarEventosBotones()
+    const parametros = new URLSearchParams(window.location.search)
+    if (elementos.buscar) elementos.buscar.value = parametros.get('q') || ''
+    enlazarEventosFiltros(elementos, actualizarCatalogo)
+    actualizarCatalogo()
 }
 
-// función para asociar eventos a los botones de cada producto.
-function asignarEventosBotones() {
-    const botonesProducto = contenedorProductos.querySelectorAll('.boton-agregar-producto')
-
-    botonesProducto.forEach((boton) => {
-        boton.addEventListener('click', (evento) => {
-            const idProducto = parseInt(boton.dataset.id)
-            const producto = productosUrban.find((item) => item.id === idProducto)
+function enlazarEventosProductos(elementos, productos, carrito) {
+    elementos.contenedor.querySelectorAll('.boton-agregar-producto').forEach((boton) => {
+        boton.addEventListener('click', () => {
+            const producto = productos.find((item) => item.id === parseInt(boton.dataset.id))
             if (!producto) return
-            productosEnCarro.push({ id: producto.id, talle: producto.talles[0], color: producto.colores[0], cantidad: 1 })
-            guardarCarrito(productosEnCarro)
-            console.log(productosEnCarro)
 
-            if (productosSeleccionados) {
-                productosSeleccionados.textContent = `(${productosEnCarro.reduce((total, item) => total + item.cantidad, 0)})`
-            }
-
-            if (dialogo) {
-                dialogo.showModal()
-            }
+            const articulo = { id: producto.id, talle: producto.talles[0], color: producto.colores[0], cantidad: 1 }
+            const carritoActualizado = agregarProducto(carrito, articulo)
+            carrito.splice(0, carrito.length, ...carritoActualizado)
+            guardarCarrito(carrito)
+            actualizarContadorCarrito(elementos.contador, carrito)
+            elementos.dialogo?.showModal()
         })
     })
 
-    const enlacesVer = contenedorProductos.querySelectorAll('.enlace-ver-producto')
-    enlacesVer.forEach((enlace) => {
-        enlace.addEventListener('click', (evento) => {
-            const id = parseInt(enlace.dataset.id)
-            localStorage.setItem('productoSeleccionado', id)
-        })
+    elementos.contenedor.querySelectorAll('.enlace-ver-producto').forEach((enlace) => {
+        enlace.addEventListener('click', () => localStorage.setItem('productoSeleccionado', parseInt(enlace.dataset.id)))
     })
 }
 
-// eventos de filtrado.
-if (botonFiltrar) {
-    botonFiltrar.addEventListener('click', (evento) => {
+function enlazarEventosFiltros(elementos, actualizarCatalogo) {
+    elementos.botonFiltrar?.addEventListener('click', actualizarCatalogo)
+    elementos.botonLimpiar?.addEventListener('click', () => {
+        if (elementos.categoria) elementos.categoria.value = 'todas'
+        if (elementos.talle) elementos.talle.value = 'todos'
+        if (elementos.buscar) elementos.buscar.value = ''
         actualizarCatalogo()
     })
+    elementos.buscar?.addEventListener('input', actualizarCatalogo)
 }
 
-if (botonLimpiar) {
-    botonLimpiar.addEventListener('click', (evento) => {
-        if (selectCategoria) {
-            selectCategoria.value = 'todas'
-        }
-        if (selectTalle) {
-            selectTalle.value = 'todos'
-        }
-
-        if (buscar) buscar.value = ''
-        actualizarCatalogo()
-    })
-}
-
-if (buscar) {
-    buscar.addEventListener('input', actualizarCatalogo)
-}
+inicializarCatalogo()

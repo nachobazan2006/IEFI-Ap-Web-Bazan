@@ -1,20 +1,20 @@
-const formulario = document.getElementById('form-perfil')
-const mensaje = document.getElementById('mensaje-perfil')
 const clavePerfil = 'perfilUsuario'
 
-try {
-    const datos = JSON.parse(localStorage.getItem(clavePerfil) || 'null')
-    if (datos && formulario) {
+function cargarPerfil(formulario) {
+    try {
+        const datos = JSON.parse(localStorage.getItem(clavePerfil) || 'null')
+        if (!datos || !formulario) return
+
         Object.entries(datos).forEach(([nombre, valor]) => {
             const campo = formulario.elements.namedItem(nombre)
             if (campo) campo.value = valor
         })
+    } catch (error) {
+        console.error('No se pudo leer el perfil guardado:', error)
     }
-} catch (error) {
-    console.error('No se pudo leer el perfil guardado:', error)
 }
 
-formulario?.addEventListener('submit', (evento) => {
+function guardarPerfil(evento, formulario, mensaje) {
     evento.preventDefault()
     if (!formulario.reportValidity()) return
     const datos = Object.fromEntries(new FormData(formulario).entries())
@@ -25,4 +25,13 @@ formulario?.addEventListener('submit', (evento) => {
         mensaje.textContent = 'No se pudieron guardar los cambios en este navegador.'
         console.error(error)
     }
-})
+}
+
+function inicializarPerfil() {
+    const formulario = document.getElementById('form-perfil')
+    const mensaje = document.getElementById('mensaje-perfil')
+    cargarPerfil(formulario)
+    formulario?.addEventListener('submit', (evento) => guardarPerfil(evento, formulario, mensaje))
+}
+
+inicializarPerfil()
