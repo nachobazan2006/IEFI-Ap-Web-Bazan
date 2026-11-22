@@ -6,13 +6,17 @@ function renderizarCatalogo(contenedor, productos) {
         return
     }
 
+    const formatoPrecio = new Intl.NumberFormat('es-AR')
+
     contenedor.innerHTML = productos.map((producto) => `
         <article class="articulo-catalogo">
             <img class="imagen-catalogo" src="${producto.imagen}" alt="${producto.nombre}">
-            <h4>${producto.nombre}</h4>
-            <p>$${producto.precio}</p>
-            <a href="producto.html?id=${producto.id}" class="enlace-ver-producto" data-id="${producto.id}">Ver producto</a>
-            <button class="boton-agregar-producto" data-id="${producto.id}">Añadir al carro</button>
+            <h3>${producto.nombre}</h3>
+            <p>$${formatoPrecio.format(producto.precio)}</p>
+            <div class="acciones-producto">
+                <a href="producto.html?id=${producto.id}" class="enlace-ver-producto" data-id="${producto.id}">Ver producto</a>
+                <button type="button" class="boton-agregar-producto" data-id="${producto.id}">Añadir al carro</button>
+            </div>
         </article>
     `).join('')
 }

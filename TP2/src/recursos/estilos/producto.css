@@ -72,6 +72,14 @@
     font-weight: bold;
 }
 
+/* los botones de compra reaccionan suave al pasar el mouse */
+.form-compra button:hover,
+.calculo-envio form button:hover {
+    background-color: #a81116;
+    transform: translateY(-2px);
+    cursor: pointer;
+}
+
 .guia-medidas,
 .calculo-envio {
     margin-top: 20px;

@@ -9,126 +9,122 @@
     <!-- Modulo js para renderizado dinamico del carrito -->
     <script type="module" src="./recursos/js/carrito.js"></script>
 </head>
-<body>
+<body class="pagina-carrito">
 
-    <header class="encabezado-principal">
-        <a href="index.html"><img src="./recursos/imagenes/logo-urban.png" alt="Logo de el emprendimiento"></a>
-        <h1>Carrito de Compras</h1>
+    <header class="encabezado-principal encabezado-flotante">
+        <!-- el checkbox abre el menú en celular sin agregar javascript -->
         <input type="checkbox" id="menu-toggle">
-        <label for="menu-toggle" aria-label="Abrir o cerrar menú"><img src="./recursos/imagenes/menu-hamburguesa.svg" alt="Menú"></label>
+        <label class="boton-menu-inicio" for="menu-toggle" aria-label="Abrir o cerrar menú">
+            <img src="./recursos/imagenes/menu-hamburguesa.svg" alt="">
+        </label>
         <nav aria-label="Navegación principal">
             <ul>
-                <li><a href="index.html">Inicio</a></li>
-                <li><a href="catalogo.html">Catalogo</a></li>
-                <li><a href="ofertas.html">Ofertas</a></li>
-                <li><a href="contacto.html">Contacto</a></li>
+                <li><a href="index.html" >Inicio</a></li>
+                <li><a href="./catalogo.html" >Catalogo</a></li>
+                <li><a href="./ofertas.html" >Ofertas</a></li>
+                <li><a href="./contacto.html" >Contacto</a></li>
             </ul>
         </nav>
+        <a class="logo-inicio" href="index.html" aria-label="cba.urban, inicio">cba.<span>urban</span></a>
         <form action="./catalogo.html" method="get">
             <label for="buscar-nav">Buscar:</label>
             <input type="search" id="buscar-nav" name="q" placeholder="Buscar prendas...">
-            <button type="submit">Buscar</button>
+            <button type="submit" aria-label="Buscar"></button>
         </form>
-        <ul>
-            <li><a href="./perfil.html"><img src="./recursos/imagenes/usuario.svg" alt="Mi perfil"></a></li>
-            <li><a href="./carrito.html"><img src="./recursos/imagenes/carrito-de-compras.svg" alt="Carrito"><span id="productos-seleccionados">(0)</span></a></li>
+        <ul class="acciones-inicio">
+            <li><a href="./perfil.html" aria-label="Mi perfil"><img src="./recursos/imagenes/usuario.svg" alt=""></a></li>
+            <li><a href="./carrito.html" aria-label="Carrito"><img src="./recursos/imagenes/carrito-de-compras.svg" alt=""><span id="productos-seleccionados">(0)</span></a></li>
         </ul>
     </header>
 
     <main class="contenido-carrito">
-        <h2 id="titulo-carrito">MI CARRITO (0)</h2>
+        <div class="columna-carrito">
+            <!-- este título presenta el carrito y deja espacio para las prendas -->
+            <section class="introduccion-carrito" aria-labelledby="titulo-carrito">
+                <h1 id="titulo-carrito">Tu carrito<span>.</span></h1>
+                <p>Revisá tu selección, calculá el envío y completá tu compra.</p>
+                <span class="detalle-rojo" aria-hidden="true"></span>
+            </section>
 
-        <!-- Artículos en el carrito (renderizados dinámicamente) -->
-        <section class="productos-seleccionados">
-            <h3>Productos seleccionados</h3>
-            <div id="contenedor-carrito">
-                <!-- Se inyecta con JavaScript -->
-            </div>
-        </section>
+            <!-- las prendas se completan con javascript según lo que compró la persona -->
+            <section class="productos-seleccionados" aria-label="Productos seleccionados">
+                <div id="contenedor-carrito"></div>
+            </section>
 
-        <!-- Medios de envío -->
-        <section class="medios-envio">
-            <h3>MEDIOS DE ENVÍO</h3>
-            <form action="carrito.html" method="post">
-                <label for="cp-calc">Código Postal:</label>
-                <input type="text" id="cp-calc" name="cp" inputmode="numeric" value="5000" pattern="[0-9]{4,8}" required aria-describedby="costo-envio-texto">
-                <button type="button" id="boton-calcular-envio">Calcular</button>
-            </form>
-            <p id="costo-envio-texto">Costo de envío estimado: $0</p>
-        </section>
-
-        <!-- Sugeridos -->
-        <section class="te-puede-interesar">
-            <h3>TE PUEDE INTERESAR</h3>
-
-            <article>
-                <img src="./recursos/imagenes/cargo-urban-negro.png" alt="Pantalón Cargo">
-                <h4>PANTALÓN CARGO</h4>
-                <p>$20.000</p>
-                <button type="button" class="boton-sugerido" data-id="2">Agregar</button>
-            </article>
-
-            <article>
-                <img src="./recursos/imagenes/roja-urban.png" alt="Remera Roja">
-                <h4>REMERA ROJA</h4>
-                <p>$15.000</p>
-                <button type="button" class="boton-sugerido" data-id="10">Agregar</button>
-            </article>
-
-            <article>
-                <img src="./recursos/imagenes/verde-urban.png" alt="Remera Verde Urban">
-                <h4>REMERA VERDE URBAN</h4>
-                <p>$21.000</p>
-                <button type="button" class="boton-sugerido" data-id="11">Agregar</button>
-            </article>
-        </section>
-
-        <!-- Resumen de compra y checkout -->
-        <section class="resumen-pedido">
-            <h3>RESUMEN DEL PEDIDO</h3>
-            <table>
-                <tbody>
-                    <tr>
-                        <th scope="row">Subtotal (sin envío):</th>
-                        <td id="resumen-subtotal">$0</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">Envío:</th>
-                        <td id="resumen-envio">$0</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">Total:</th>
-                        <td id="resumen-total">$0</td>
-                    </tr>
-                </tbody>
-            </table>
-
-            <form id="form-checkout" action="confirmacion.html" method="post">
-                <legend>Datos para el despacho</legend>
-
-                <div>
-                    <label for="nom-comprador">Nombre completo:</label>
-                    <input type="text" id="nom-comprador" name="nombre" minlength="3" required>
+            <!-- estas prendas se pueden sumar al carrito con el botón de cada tarjeta -->
+            <section class="te-puede-interesar" aria-labelledby="titulo-sugerencias">
+                <h2 id="titulo-sugerencias">Te puede interesar<span>.</span></h2>
+                <p>Sumá a tu pedido y completá tu look.</p>
+                <span class="detalle-rojo" aria-hidden="true"></span>
+                <div class="lista-sugerencias">
+                    <article>
+                        <img src="./recursos/imagenes/cargo-urban-negro.png" alt="Pantalón cargo negro">
+                        <h3>Pantalón cargo</h3>
+                        <p>$20.000</p>
+                        <button type="button" class="boton-sugerido" data-id="2">Agregar</button>
+                    </article>
+                    <article>
+                        <img src="./recursos/imagenes/roja-urban.png" alt="Remera roja">
+                        <h3>Remera roja</h3>
+                        <p>$15.000</p>
+                        <button type="button" class="boton-sugerido" data-id="10">Agregar</button>
+                    </article>
+                    <article>
+                        <img src="./recursos/imagenes/verde-urban.png" alt="Remera verde urbana">
+                        <h3>Remera verde urban</h3>
+                        <p>$21.000</p>
+                        <button type="button" class="boton-sugerido" data-id="11">Agregar</button>
+                    </article>
                 </div>
+            </section>
+        </div>
 
-                <div>
-                    <label for="dir-comprador">Dirección de entrega:</label>
-                    <input type="text" id="dir-comprador" name="direccion" minlength="5" required>
-                </div>
+        <!-- el envío, el total y los datos de compra comparten un mismo panel -->
+        <aside class="panel-pedido" aria-label="Envío y resumen del pedido">
+            <section class="medios-envio" aria-labelledby="titulo-envio">
+                <h2 id="titulo-envio">Medios de envío</h2>
+                <form action="carrito.html" method="post">
+                    <label for="cp-calc">Código Postal:</label>
+                    <input type="text" id="cp-calc" name="cp" inputmode="numeric" value="5000" pattern="[0-9]{4,8}" required aria-describedby="costo-envio-texto">
+                    <button type="button" id="boton-calcular-envio">Calcular</button>
+                </form>
+                <p id="costo-envio-texto">Costo de envío estimado: $0</p>
+            </section>
 
-                <div>
-                    <label for="medio-pago">Método de pago:</label>
-                    <select id="medio-pago" name="pago">
-                        <option value="transferencia">Transferencia bancaria</option>
-                        <option value="tarjeta">Tarjeta de crédito / débito</option>
-                        <option value="mercadopago">Mercado Pago</option>
-                    </select>
-                </div>
+            <section class="resumen-pedido" aria-labelledby="titulo-resumen">
+                <h2 id="titulo-resumen">Resumen del pedido</h2>
+                <table>
+                    <tbody>
+                        <tr><th scope="row">Subtotal (sin envío):</th><td id="resumen-subtotal">$0</td></tr>
+                        <tr><th scope="row">Envío:</th><td id="resumen-envio">$0</td></tr>
+                        <tr class="fila-total"><th scope="row">Total:</th><td id="resumen-total">$0</td></tr>
+                    </tbody>
+                </table>
+            </section>
 
-                <button type="submit">INICIAR COMPRA</button>
-            </form>
-        </section>
-
+            <section class="datos-despacho" aria-labelledby="titulo-despacho">
+                <h2 id="titulo-despacho">Datos para el despacho</h2>
+                <form id="form-checkout" action="confirmacion.html" method="post">
+                    <div>
+                        <label for="nom-comprador">Nombre completo:</label>
+                        <input type="text" id="nom-comprador" name="nombre" minlength="3" required>
+                    </div>
+                    <div>
+                        <label for="dir-comprador">Dirección de entrega:</label>
+                        <input type="text" id="dir-comprador" name="direccion" minlength="5" required>
+                    </div>
+                    <div>
+                        <label for="medio-pago">Método de pago:</label>
+                        <select id="medio-pago" name="pago">
+                            <option value="transferencia">Transferencia bancaria</option>
+                            <option value="tarjeta">Tarjeta de crédito / débito</option>
+                            <option value="mercadopago">Mercado Pago</option>
+                        </select>
+                    </div>
+                    <button type="submit">Iniciar compra</button>
+                </form>
+            </section>
+        </aside>
     </main>
 
     <footer class="pie-de-pagina-principal">

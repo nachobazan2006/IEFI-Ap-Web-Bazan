@@ -1,321 +1,456 @@
-.contenido-catalogo
-{
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 40px;
+/* el catálogo usa sus propias clases para no cambiar las otras páginas */
+.contenido-catalogo {
     background-color: #ffffff;
-    color: #25231f;
+    color: #111111;
 }
 
-.contenido-catalogo h2
-{
-    margin: 0 0 35px 0;
-    font-size: 2rem;
+/* el fondo gris simula los pliegues suaves de la referencia */
+.presentacion-catalogo {
+    min-height: 260px;
+    padding: 106px 4% 24px;
+    background-color: #e8e7e7;
+    background-image:
+        linear-gradient(125deg, transparent 55%, rgba(255, 255, 255, .6) 66%, transparent 76%),
+        linear-gradient(145deg, transparent 65%, rgba(94, 94, 94, .16) 77%, rgba(255, 255, 255, .45) 86%, transparent 94%),
+        linear-gradient(105deg, #eae8e8 12%, #f6f5f5 48%, #d2d0d0 100%);
 }
 
-.contenido-catalogo h3,
-.contenido-catalogo h4,
-.contenido-catalogo p
-{
-    margin-top: 0;
+.presentacion-interior {
+    max-width: 1550px;
+    margin: 0 auto;
 }
 
-.contenido-catalogo h3
-{
-    margin-bottom: 20px;
+.etiqueta-catalogo {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 4px;
+    font-family: "CbaPoppins", Arial, sans-serif;
+    font-size: 15px;
+    font-weight: 700;
+    letter-spacing: 3px;
     text-transform: uppercase;
 }
 
-.contenido-catalogo img
-{
-    display: block;
-    max-width: 100%;
+.etiqueta-catalogo span {
+    width: 40px;
+    height: 3px;
+    background-color: #a81116;
 }
 
-.contenido-catalogo button,
-.contenido-catalogo input,
-.contenido-catalogo select
-{
-    min-height: 40px;
-    font-family: inherit;
-    font-size: 15px;
+.presentacion-catalogo h1 {
+    font-family: "CbaInstrument", Georgia, serif;
+    font-size: clamp(48px, 4.3vw, 72px);
+    font-style: italic;
+    font-weight: 400;
+    line-height: 1.05;
 }
 
-.contenido-catalogo input,
-.contenido-catalogo select
-{
-    padding: 8px;
-    border: 1px solid #d9d2c8;
-    background-color: #fffdfa;
+.presentacion-catalogo h1 span {
+    color: #a81116;
 }
 
-.contenido-catalogo button
-{
-    padding: 8px 14px;
-    border: 1px solid #25231f;
-    background-color: #25231f;
-    color: white;
-    cursor: pointer;
+.descripcion-catalogo {
+    margin-top: 5px;
+    font-family: "CbaMontserrat", Arial, sans-serif;
+    font-size: 18px;
 }
 
-/* esto es para que el boton cambie un poquito cuando paso el mouse */
-.contenido-catalogo button:hover
-{
-    background-color: #d77a45;
-}
-
-.filtros-catalogo
-{
-    position: relative;
-    display: inline-block;
-    margin-bottom: 32px;
-}
-
-.filtros-catalogo summary
-{
-    padding: 10px 18px;
-    border: 1px solid #25231f;
-    background-color: #fffdfa;
-    cursor: pointer;
-    list-style: none;
-}
-
-.filtros-catalogo summary::before
-{
-    content: "+ ";
-}
-
-.filtros-catalogo[open] summary::before
-{
-    content: "- ";
-}
-
-.filtros-catalogo aside
-{
-    position: absolute;
-    top: 48px;
-    right: 0;
-    z-index: 2;
-    width: 340px;
-    padding: 20px;
-    border: 1px solid #d9d2c8;
-    background-color: #fffdfa;
-    box-shadow: 0 10px 25px rgba(37, 35, 31, .18);
-}
-
-.formulario-catalogo
-{
-    display: flex;
-    flex-direction: column;
-    gap: 18px;
-    padding: 0;
-    border-radius: 0;
-}
-
-.formulario-catalogo > div,
-.formulario-catalogo fieldset
-{
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
-}
-
-.formulario-catalogo > div
-{
-    flex-direction: column;
-}
-
-.formulario-catalogo fieldset
-{
-    margin: 0;
-    border: 0;
-    padding: 0;
-}
-
-/* fuerzo que se vean los nombres de los filtros aunque el css general los pise */
-.formulario-catalogo fieldset label
-{
-    display: inline-block;
-    position: static;
-    width: auto;
-    height: auto;
-    overflow: visible;
-    clip: auto;
-    color: #25231f;
-    white-space: normal;
-}
-
-.formulario-catalogo legend
-{
-    width: 100%;
-    margin-bottom: 5px;
-    font-weight: bold;
-}
-
-.formulario-catalogo input[type="checkbox"]
-{
-    width: auto;
-    min-height: auto;
-}
-
-.formulario-catalogo fieldset input[type="checkbox"] + label
-{
-    margin-right: 12px;
-}
-
-.formulario-catalogo button
-{
-    width: 100%;
-}
-
-.seccion-prendas-catalogo
-{
+/* ponemos los filtros al lado de los productos */
+.cuerpo-catalogo {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 16px;
+    grid-template-columns: 276px minmax(0, 1fr);
+    gap: 30px;
+    max-width: 1660px;
+    margin: 0 auto;
+    padding: 24px 3.4% 60px;
+}
+
+.filtros-catalogo {
+    align-self: start;
+    padding: 16px 20px 28px;
+    border-radius: 15px;
+    background-color: #f4f4f4;
+}
+
+.filtros-catalogo summary {
+    display: none;
+}
+
+.filtros-catalogo aside h2 {
+    margin-bottom: 18px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid #d8d8d8;
+    font-family: "CbaPoppins", Arial, sans-serif;
+    font-size: 24px;
+    line-height: 1.2;
+}
+
+.formulario-catalogo {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.formulario-catalogo > div {
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+}
+
+.formulario-catalogo label {
+    font-family: "CbaPoppins", Arial, sans-serif;
+    font-size: 15px;
+    font-weight: 600;
+}
+
+.formulario-catalogo select {
+    width: 100%;
+    min-height: 48px;
+    padding: 0 16px;
+    border: 0;
+    border-radius: 26px;
+    background-color: #ffffff;
+    color: #111111;
+    font-family: "CbaMontserrat", Arial, sans-serif;
+    font-size: 14px;
+    box-shadow: 0 2px 1px rgba(0, 0, 0, .08);
+    cursor: pointer;
+}
+
+#boton-limpiar-filtros {
+    align-self: flex-start;
+    margin-top: 16px;
     padding: 0;
+    border: 0;
+    background: none;
+    color: #111111;
+    font-family: "CbaMontserrat", Arial, sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    text-decoration: underline;
+    cursor: pointer;
 }
 
-.seccion-prendas-catalogo > h3
-{
-    grid-column: 1 / -1;
-    margin-bottom: 0;
+#boton-limpiar-filtros:hover,
+.enlace-ver-producto:hover {
+    color: #a81116;
 }
 
-.articulo-catalogo
-{
+.productos-catalogo {
+    min-width: 0;
+}
+
+.barra-productos {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 18px;
+    min-height: 48px;
+    margin-bottom: 18px;
+}
+
+.resumen-productos {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+}
+
+.resumen-productos h2 {
+    font-family: "CbaPoppins", Arial, sans-serif;
+    font-size: 21px;
+    line-height: 1.2;
+}
+
+.resumen-productos p {
+    padding-left: 18px;
+    border-left: 1px solid #cccccc;
+    color: #555555;
+    font-family: "CbaMontserrat", Arial, sans-serif;
+    font-size: 14px;
+}
+
+.vistas-catalogo {
+    display: flex;
+    gap: 5px;
+}
+
+.vistas-catalogo button {
+    width: 44px;
+    height: 42px;
+    padding: 0;
+    border: 0;
+    border-radius: 11px;
+    background-color: transparent;
+    color: #111111;
+    font-size: 23px;
+    line-height: 1;
+    cursor: pointer;
+}
+
+.vistas-catalogo button.vista-activa,
+.vistas-catalogo button:hover {
+    background-color: #efefef;
+}
+
+/* las tarjetas conservan los enlaces y botones que arma javascript */
+.seccion-prendas-catalogo {
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    gap: 24px 22px;
+}
+
+.articulo-catalogo {
     display: flex;
     flex-direction: column;
     min-width: 0;
 }
 
-/* le dejo este movimiento chico para que la tarjeta se sienta clickeable */
-.articulo-catalogo:hover
-{
-    position: relative;
-    top: -4px;
-}
-
-.imagen-catalogo
-{
+.imagen-catalogo {
     width: 100%;
-    height: 300px;
-    border-radius: 0;
-    background-color: #f7f7f7;
+    height: 180px;
+    border-radius: 11px;
+    background-color: #eaeaea;
+    object-fit: contain;
 }
 
-.articulo-catalogo h4,
-.articulo-catalogo p,
-.articulo-catalogo a
-{
-    margin-right: 8px;
-    margin-left: 8px;
-}
-
-.articulo-catalogo h4
-{
-    margin-top: 14px;
-    margin-bottom: 6px;
-    font-size: 14px;
-    font-weight: normal;
+.articulo-catalogo h3 {
+    margin-top: 8px;
+    font-family: "CbaPoppins", Arial, sans-serif;
+    font-size: 12px;
+    font-weight: 700;
+    line-height: 1.35;
     text-transform: uppercase;
 }
 
-.articulo-catalogo p
-{
-    margin-bottom: 8px;
-    color: #25231f;
+.articulo-catalogo p {
+    margin: 5px 0 10px;
+    font-family: "CbaPoppins", Arial, sans-serif;
+    font-size: 14px;
+    font-weight: 700;
 }
 
-.articulo-catalogo a
-{
+.acciones-producto {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 5px;
     margin-top: auto;
-    margin-bottom: 10px;
-    color: #25231f;
-    font-weight: bold;
-    text-decoration: none;
 }
 
-.articulo-catalogo a:hover
-{
-    text-decoration: underline;
+.enlace-ver-producto {
+    color: #111111;
+    font-family: "CbaMontserrat", Arial, sans-serif;
+    font-size: 11px;
+    font-weight: 700;
+    white-space: nowrap;
 }
 
-@media (max-width: 900px)
-{
-    .contenido-catalogo
-    {
-        padding: 25px;
-    }
-
-    .seccion-prendas-catalogo
-    {
-        grid-template-columns: repeat(2, 1fr);
-    }
+.boton-agregar-producto {
+    min-height: 30px;
+    padding: 6px 8px;
+    border: 0;
+    background-color: #111111;
+    color: #ffffff;
+    font-family: "CbaPoppins", Arial, sans-serif;
+    font-size: 10px;
+    font-weight: 600;
+    white-space: nowrap;
+    cursor: pointer;
 }
 
-@media (max-width: 500px)
-{
-    .contenido-catalogo
-    {
-        padding: 15px;
-    }
-
-    .contenido-catalogo h2
-    {
-        font-size: 32px;
-    }
-
-    .filtros-catalogo aside
-    {
-        position: static;
-        width: 280px;
-    }
-
-    .seccion-prendas-catalogo
-    {
-        grid-template-columns: 1fr;
-    }
-
-    .seccion-prendas-catalogo > h3
-    {
-        grid-column: auto;
-    }
+.boton-agregar-producto:hover {
+    background-color: #a81116;
+    transform: translateY(-2px);
 }
 
-/* Diálogo modal para eventos de carrito */
-dialog
-{
+/* en vista de lista la foto y los datos se acomodan en una fila */
+.seccion-prendas-catalogo.vista-lista {
+    grid-template-columns: 1fr;
+    gap: 14px;
+}
+
+.vista-lista .articulo-catalogo {
+    display: grid;
+    grid-template-columns: 140px minmax(0, 1fr) auto;
+    align-items: center;
+    gap: 4px 20px;
+    padding-bottom: 14px;
+    border-bottom: 1px solid #e5e5e5;
+}
+
+.vista-lista .imagen-catalogo {
+    grid-row: 1 / 4;
+    height: 110px;
+}
+
+.vista-lista .articulo-catalogo h3,
+.vista-lista .articulo-catalogo p {
+    margin: 0;
+}
+
+.vista-lista .acciones-producto {
+    grid-column: 3;
+    grid-row: 1 / 4;
+    gap: 18px;
+}
+
+.contenido-catalogo dialog {
+    max-width: 420px;
     margin: auto;
     padding: 24px;
-    border: 1px solid #25231f;
+    border: 1px solid #111111;
     background-color: #ffffff;
-    max-width: 420px;
-    box-shadow: 0 10px 25px rgba(37, 35, 31, .18);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, .18);
 }
 
-dialog::backdrop
-{
-    background-color: rgba(0, 0, 0, 0.5);
+.contenido-catalogo dialog::backdrop {
+    background-color: rgba(0, 0, 0, .5);
 }
 
-dialog h2
-{
-    margin-top: 0;
+.contenido-catalogo dialog h2 {
     margin-bottom: 12px;
-    font-size: 1.3rem;
-    text-transform: uppercase;
+    font-family: "CbaPoppins", Arial, sans-serif;
+    font-size: 21px;
 }
 
-dialog p
-{
+.contenido-catalogo dialog p {
     margin-bottom: 20px;
 }
 
-.articulo-catalogo button
-{
-    margin-top: 8px;
-    margin-right: 8px;
-    margin-left: 8px;
-    margin-bottom: 12px;
+.contenido-catalogo dialog button {
+    padding: 10px 16px;
+    border: 0;
+    background-color: #111111;
+    color: #ffffff;
+    cursor: pointer;
+}
+
+/* achicamos la grilla de a poco para que las tarjetas no se aplasten */
+@media (max-width: 1450px) {
+    .seccion-prendas-catalogo {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+}
+
+@media (max-width: 1150px) {
+    .cuerpo-catalogo {
+        grid-template-columns: 235px minmax(0, 1fr);
+        gap: 22px;
+    }
+
+    .seccion-prendas-catalogo {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+}
+
+@media (max-width: 800px) {
+    .cuerpo-catalogo {
+        grid-template-columns: 1fr;
+        gap: 18px;
+    }
+
+    .filtros-catalogo {
+        padding: 0;
+    }
+
+    .filtros-catalogo summary {
+        display: block;
+        padding: 13px 20px;
+        font-family: "CbaPoppins", Arial, sans-serif;
+        font-weight: 700;
+        cursor: pointer;
+    }
+
+    .filtros-catalogo aside {
+        padding: 0 20px 22px;
+    }
+
+    .filtros-catalogo aside h2 {
+        display: none;
+    }
+
+    .formulario-catalogo {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 14px;
+    }
+
+    #boton-limpiar-filtros {
+        grid-column: 1 / -1;
+        margin-top: 0;
+    }
+}
+
+@media (max-width: 600px) {
+    .presentacion-catalogo {
+        min-height: 265px;
+        padding: 110px 6% 24px;
+    }
+
+    .presentacion-catalogo h1 {
+        font-size: 47px;
+    }
+
+    .descripcion-catalogo {
+        font-size: 14px;
+    }
+
+    .cuerpo-catalogo {
+        padding: 18px 5% 45px;
+    }
+
+    .formulario-catalogo {
+        grid-template-columns: 1fr;
+    }
+
+    .seccion-prendas-catalogo {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 20px 12px;
+    }
+
+    .imagen-catalogo {
+        height: 160px;
+    }
+
+    .barra-productos {
+        align-items: flex-start;
+    }
+
+    .resumen-productos {
+        display: block;
+    }
+
+    .resumen-productos h2 {
+        font-size: 18px;
+    }
+
+    .resumen-productos p {
+        margin-top: 2px;
+        padding-left: 0;
+        border-left: 0;
+    }
+
+    .acciones-producto {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 7px;
+    }
+
+    .vista-lista .articulo-catalogo {
+        grid-template-columns: 95px minmax(0, 1fr);
+        gap: 4px 12px;
+    }
+
+    .vista-lista .imagen-catalogo {
+        grid-row: 1 / 4;
+        height: 100px;
+    }
+
+    .vista-lista .acciones-producto {
+        grid-column: 2;
+        grid-row: 3;
+        flex-direction: row;
+        gap: 8px;
+    }
 }

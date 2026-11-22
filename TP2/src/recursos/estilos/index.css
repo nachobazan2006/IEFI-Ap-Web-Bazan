@@ -21,6 +21,39 @@
     font-style: normal;
 }
 
+/* bajamos las familias de google fonts que usa este inicio */
+@font-face {
+    font-family: "CbaInstrument";
+    src: url("../fuentes/InstrumentSerif-Italic.ttf") format("truetype");
+    font-weight: 400;
+    font-style: italic;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: "CbaMontserrat";
+    src: url("../fuentes/Montserrat-Regular.ttf") format("truetype");
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: "CbaPoppins";
+    src: url("../fuentes/Poppins-SemiBold.ttf") format("truetype");
+    font-weight: 600;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: "CbaPoppins";
+    src: url("../fuentes/Poppins-Bold.ttf") format("truetype");
+    font-weight: 700;
+    font-style: normal;
+    font-display: swap;
+}
+
 /* El asterisco (*) elige TODOS los elementos.
    Lo usamos para sacar los espacios que el navegador agrega solo,
    así podemos acomodar todo nosotros desde cero.
@@ -61,6 +94,12 @@ ul {
 
 a {
     color: #000000;
+}
+
+/* los enlaces y botones cambian de color sin saltos bruscos */
+a,
+button {
+    transition: background-color 0.35s ease, color 0.35s ease, border-color 0.35s ease, box-shadow 0.35s ease, opacity 0.35s ease, transform 0.35s ease;
 }
 
 /* Marco visible cuando alguien navega con el teclado (tecla Tab) */
@@ -313,31 +352,12 @@ header button:focus-visible {
 }
 
 
-/* CONTENIDO PRINCIPAL (todas las páginas) */
-
-/* Caja central: no pasa de 1100px de ancho y queda centrada en la pantalla */
-/* lo dejo con la clase del inicio asi no pisa catalogo ni ofertas */
-main.contenido-principal {
-    max-width: 1100px;
+/* el contenido del inicio usa sus propias clases para no cambiar las otras páginas */
+.contenido-principal.inicio-pagina {
+    width: 100%;
     margin: 0 auto;
-    padding: 0 24px 56px;
-}
-
-/* Todos los links dentro del contenido tienen forma de botón.
-   Así no hace falta ponerle una clase a cada uno. */
-main.contenido-principal a {
-    display: inline-block;
-    padding: 10px 24px;
-    border: 1px solid #000000;
-    background-color: #000000;
-    color: #ffffff;
-    text-decoration: none;
-    font-weight: 500;
-}
-
-main.contenido-principal a:hover {
-    background-color: #ffffff;
-    color: #000000;
+    padding: 0;
+    font-family: "CbaMontserrat", Arial, sans-serif;
 }
 
 
@@ -372,15 +392,7 @@ main.contenido-principal a:hover {
 }
 
 
-/* 
-   SOLO PARA EL INDEX
-   */
-
-/* Barra de anuncios de arriba de todo.
-   El cambio se hizo porque la regla "aside" (de tipo) también le llegaba al aside de
-   filtros del catálogo y le dejaba el texto blanco sobre fondo claro. Se cambió aside
-   por la clase .barra-anuncios, que se agregó en index.html y en ofertas.html. */
-/* aside { */
+/* esta franja ya formaba parte del encabezado del sitio */
 .barra-anuncios {
     background-color: #000000;
     color: #ffffff;
@@ -389,88 +401,718 @@ main.contenido-principal a:hover {
     padding: 8px 16px;
 }
 
-/* Cada sección de la página de inicio, separada por una línea.
-   "main section" elige las secciones que están dentro del main. */
-main.contenido-principal section {
-    padding: 56px 0;
-    text-align: center;
-    border-bottom: 1px solid #000000;
+/* el hero queda pegado mientras las secciones siguientes pasan por encima */
+.hero-inicio {
+    position: sticky;
+    top: 0;
+    z-index: 0;
+    display: flex;
+    align-items: center;
+    min-height: 90vh;
+    padding: 64px max(calc((100% - 1120px) / 2), 7%);
+    overflow: hidden;
+    background-color: #efeeed;
 }
 
-
-main.contenido-principal section > h2 {
-    font-size: 2rem;
-    line-height: 1.2;
-    margin-bottom: 12px;
-}
-
-main.contenido-principal section > p {
-    margin-bottom: 20px;
-}
-
-/* Imagen grande de "Más vendidos" (la que está suelta en la sección) */
-main.contenido-principal section > img {
-    max-width: 480px;
-    margin: 24px auto;
-}
-
-/* Las secciones 2 y 4 (Géneros y Categorías) llevan tarjetas en grilla.
-   Usamos nth-of-type para elegirlas por su lugar: 2.ª y 4.ª sección.
-   "auto-fit" acomoda solo la cantidad de columnas según el ancho de la pantalla. */
-main.contenido-principal section:nth-of-type(2),
-main.contenido-principal section:nth-of-type(4) {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-    gap: 32px;
-}
-
-/* El título de esas secciones ocupa todas las columnas, para quedar arriba y centrado */
-main.contenido-principal section:nth-of-type(2) > h2,
-main.contenido-principal section:nth-of-type(4) > h2 {
-    grid-column: 1 / -1;
-    margin-bottom: 0;
-}
-
-/* Tarjetas: título y foto de cada prenda */
-main.contenido-principal article h3 {
-    font-size: 1.1rem;
-    margin: 12px 0;
-}
-
-/* Todas las fotos con la misma proporción (4:5) para que la grilla quede prolija */
-main.contenido-principal article img {
+.hero-foto {
+    position: absolute;
+    top: 76px;
+    right: 0;
     width: 100%;
-    aspect-ratio: 4 / 5;
+    height: calc(100% - 76px);
     object-fit: cover;
-    border: 1px solid #000000;
-    margin-bottom: 16px;
+    object-position: center top;
 }
 
-/* Banner de ofertas (3.ª sección): colores al revés para que resalte */
-main.contenido-principal section:nth-of-type(3) {
+.hero-texto {
+    position: relative;
+    z-index: 1;
+    width: 50%;
+}
+
+.hero-texto h1 {
+    margin-bottom: 22px;
+    font-family: "CbaPoppins", Arial, sans-serif;
+    font-size: clamp(3.5rem, 6vw, 5.5rem);
+    font-weight: 700;
+    line-height: 0.93;
+}
+
+.hero-texto h1 span:first-child,
+.hero-texto h1 em {
+    display: block;
+}
+
+.hero-texto h1 em,
+.titulo-editorial,
+.vendidos-texto h2 em,
+.genero-contenido h3 {
+    font-family: "CbaInstrument", Georgia, serif;
+    font-style: italic;
+    font-weight: 400;
+}
+
+.hero-texto h1 em {
+    font-size: 1.28em;
+}
+
+.punto-rojo {
+    display: inline !important;
+    color: #a81116;
+}
+
+.hero-texto p {
+    margin-bottom: 26px;
+    font-size: 1.18rem;
+}
+
+.boton-principal,
+.boton-claro {
+    display: inline-flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 22px;
+    min-height: 46px;
+    padding: 10px 20px;
+    border: 1px solid #000000;
     background-color: #000000;
     color: #ffffff;
-    border-bottom: none;
+    font-family: "CbaPoppins", Arial, sans-serif;
+    font-weight: 600;
+    text-decoration: none;
 }
 
-main.contenido-principal section:nth-of-type(3) a {
+.boton-principal:hover {
+    background-color: #a81116;
+    border-color: #a81116;
+    transform: translateY(-2px);
+}
+
+/* el producto queda grande a la derecha, con texto simple a la izquierda */
+.mas-vendidos {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    min-height: 285px;
+    padding: 18px max(calc((100% - 1120px) / 2), 7%);
+    background-color: #f5f4f3;
+}
+
+.vendidos-texto {
+    width: 48%;
+}
+
+.vendidos-texto h2 {
+    margin-bottom: 8px;
+    font-family: "CbaPoppins", Arial, sans-serif;
+    font-size: clamp(2.7rem, 5vw, 4rem);
+    font-weight: 700;
+    line-height: 1;
+}
+
+.vendidos-texto h2 em {
+    font-size: 1.08em;
+}
+
+.raya-roja {
+    display: block;
+    width: 58px;
+    height: 4px;
+    margin: 14px 0;
+    background-color: #a81116;
+}
+
+.vendidos-texto p {
+    margin-bottom: 18px;
+    font-size: 1.08rem;
+    line-height: 1.4;
+}
+
+.vendidos-foto {
+    width: min(45%, 420px);
+    max-height: 275px;
+    object-fit: contain;
+}
+
+/* estos títulos editoriales y las tarjetas separan las categorías */
+.generos,
+.categorias {
+    position: relative;
+    z-index: 1;
+    padding: 18px max(calc((100% - 1120px) / 2), 7%) 24px;
+    background-color: #ffffff;
+}
+
+.titulo-editorial {
+    margin: 0;
+    font-size: clamp(2.5rem, 4vw, 3.5rem);
+    line-height: 1;
+    font-family: "CbaPoppins", Arial, sans-serif;
+    font-style: normal;
+    font-weight: 700;
+}
+
+.generos .raya-roja,
+.categorias .raya-roja {
+    margin: 8px 0 12px;
+}
+
+.generos-lista {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 18px;
+}
+
+.tarjeta-genero {
+    position: relative;
+    height: 190px;
+    overflow: hidden;
+    background-color: #55524f;
+}
+
+.tarjeta-genero > a {
+    display: block;
+    width: 100%;
+    height: 100%;
+    color: #ffffff;
+    text-decoration: none;
+}
+
+.tarjeta-genero img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center top;
+}
+
+.tarjeta-genero::after {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(90deg, rgba(0, 0, 0, 0.58), rgba(0, 0, 0, 0) 76%);
+    content: "";
+    pointer-events: none;
+}
+
+.genero-contenido {
+    position: absolute;
+    z-index: 1;
+    top: 25px;
+    left: 30px;
+    color: #ffffff;
+}
+
+.genero-contenido h3 {
+    margin-bottom: 8px;
+    font-size: 2.5rem;
+}
+
+.boton-contorno {
+    display: inline-flex;
+    gap: 16px;
+    padding: 6px 14px;
+    border: 1px solid #ffffff;
+    font-family: "CbaPoppins", Arial, sans-serif;
+    font-size: 0.86rem;
+    font-weight: 600;
+}
+
+.tarjeta-genero:hover img,
+.tarjeta-categoria:hover img {
+    transform: scale(1.03);
+}
+
+.tarjeta-genero img,
+.tarjeta-categoria img {
+    transition: transform 0.4s ease;
+}
+
+/* el banner queda en negro y conserva el rojo solo como detalle */
+.banner-ofertas {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+    min-height: 112px;
+    padding: 20px max(calc((100% - 1120px) / 2), 7%);
+    background-color: #111111;
+    color: #ffffff;
+}
+
+.banner-ofertas .titulo-editorial {
+    font-size: clamp(2.5rem, 4vw, 3.7rem);
+}
+
+.separador-rojo {
+    color: #bd1e24;
+    font-size: 2.2rem;
+}
+
+.banner-ofertas p {
+    flex: 1;
+    font-size: 0.95rem;
+    line-height: 1.35;
+}
+
+.banner-ofertas strong {
+    font-size: 1.35rem;
+}
+
+.boton-claro {
+    border-color: #ffffff;
     background-color: #ffffff;
     color: #000000;
-    border-color: #ffffff;
 }
 
-main.contenido-principal section:nth-of-type(3) a:hover {
-    background-color: #000000;
+.boton-claro:hover {
+    background-color: #e9e9e9;
+    transform: translateY(-2px);
+}
+
+.categorias {
+    padding-top: 14px;
+    padding-bottom: 44px;
+}
+
+.categorias-lista {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 18px;
+}
+
+.tarjeta-categoria {
+    position: relative;
+    height: 185px;
+    overflow: hidden;
+    background-color: #e8e6e5;
+}
+
+.tarjeta-categoria > a {
+    display: block;
+    width: 100%;
+    height: 100%;
     color: #ffffff;
+    text-decoration: none;
 }
 
-/* Celular: secciones más compactas */
-@media (max-width: 600px) {
-    main.contenido-principal section {
-        padding: 40px 0;
+.tarjeta-categoria img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.tarjeta-categoria h3 {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 0;
+    padding: 8px 16px;
+    background-color: rgba(0, 0, 0, 0.82);
+    font-family: "Poppins", Arial, sans-serif;
+    font-size: 1.15rem;
+    font-weight: 600;
+}
+
+.tarjeta-genero > a:focus-visible,
+.tarjeta-categoria > a:focus-visible,
+.contenido-principal.inicio-pagina a:focus-visible {
+    outline: 3px solid #a81116;
+    outline-offset: 3px;
+}
+
+/* en tablet las tarjetas mantienen su grilla y el banner se acomoda */
+@media (max-width: 768px) {
+    .hero-inicio {
+        min-height: 80vh;
+        padding: 52px 6%;
     }
 
-    main.contenido-principal section > h2 {
-        font-size: 1.6rem;
+    .hero-texto {
+        width: 55%;
+    }
+
+    .mas-vendidos,
+    .generos,
+    .categorias,
+    .banner-ofertas {
+        padding-right: 6%;
+        padding-left: 6%;
+    }
+
+    .tarjeta-genero {
+        height: 170px;
+    }
+
+    .banner-ofertas {
+        flex-wrap: wrap;
+    }
+}
+
+/* en celulares mostramos primero el texto y apilamos las tarjetas */
+@media (max-width: 600px) {
+    .hero-inicio {
+        flex-direction: column;
+        align-items: stretch;
+        min-height: 0;
+        padding: 40px 7% 0;
+    }
+
+    .hero-foto {
+        position: relative;
+        top: auto;
+        right: auto;
+        order: 2;
+        align-self: center;
+        width: calc(100% + 14%);
+        max-width: none;
+        height: auto;
+        margin-top: 18px;
+        object-fit: contain;
+    }
+
+    .hero-texto {
+        order: 1;
+        width: 100%;
+    }
+
+    .hero-texto h1 {
+        font-size: clamp(2.5rem, 10vw, 3.2rem);
+    }
+
+    .hero-texto p {
+        max-width: 245px;
+        font-size: 1rem;
+    }
+
+    .mas-vendidos {
+        min-height: 250px;
+        padding-top: 30px;
+        padding-bottom: 20px;
+    }
+
+    .vendidos-texto {
+        width: 58%;
+    }
+
+    .vendidos-texto h2 {
+        font-size: 2.5rem;
+    }
+
+    .vendidos-texto p {
+        font-size: 0.9rem;
+    }
+
+    .vendidos-foto {
+        width: 42%;
+    }
+
+    .generos,
+    .categorias {
+        padding-top: 22px;
+        padding-bottom: 26px;
+    }
+
+    .generos-lista,
+    .categorias-lista {
+        grid-template-columns: 1fr;
+        gap: 12px;
+    }
+
+    .tarjeta-genero,
+    .tarjeta-categoria {
+        height: 190px;
+    }
+
+    .banner-ofertas {
+        gap: 10px 18px;
+        padding-top: 22px;
+        padding-bottom: 22px;
+    }
+
+    .banner-ofertas .titulo-editorial {
+        font-size: 2.8rem;
+    }
+
+    .banner-ofertas p {
+        flex-basis: calc(100% - 120px);
+    }
+
+    .banner-ofertas .boton-claro {
+        margin-left: auto;
+    }
+}
+
+/* este header flotante se comparte en todas las páginas del sitio */
+.encabezado-principal.encabezado-flotante {
+    position: sticky;
+    top: 10px;
+    z-index: 50;
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 18px;
+    height: 76px;
+    margin: 0 18px -76px;
+    padding: 10px 24px;
+    border-radius: 42px;
+    background-color: #e9e8e7;
+    color: #111111;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+}
+
+.encabezado-principal.encabezado-flotante a {
+    color: #111111;
+}
+
+.encabezado-flotante input[type="checkbox"] {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    opacity: 0;
+}
+
+.encabezado-flotante .boton-menu-inicio {
+    display: none;
+}
+
+.encabezado-flotante nav {
+    order: 1;
+}
+
+.encabezado-flotante nav ul {
+    flex-wrap: nowrap;
+    gap: 8px 22px;
+}
+
+.encabezado-flotante nav a {
+    position: relative;
+    display: inline-block;
+    padding: 8px 0;
+    color: #191919;
+    font-family: "CbaPoppins", Arial, sans-serif;
+    font-size: 0.88rem;
+    font-weight: 600;
+    text-decoration: none;
+}
+
+/* la rayita del menú crece de a poco y no mueve los enlaces */
+.encabezado-flotante nav a::after {
+    position: absolute;
+    right: 0;
+    bottom: 1px;
+    left: 0;
+    height: 3px;
+    background-color: #a81116;
+    content: "";
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.35s ease;
+}
+
+.encabezado-flotante nav a:hover::after,
+.encabezado-flotante nav a[aria-current="page"]::after {
+    transform: scaleX(1);
+}
+
+.encabezado-flotante nav a:hover,
+.encabezado-flotante nav a[aria-current="page"] {
+    text-decoration: none;
+}
+
+.encabezado-flotante .logo-inicio {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    flex-basis: auto;
+    transform: translate(-50%, -50%);
+    color: #111111;
+    font-family: "CbaPoppins", Arial, sans-serif;
+    font-size: 1.9rem;
+    font-weight: 700;
+    letter-spacing: -1.5px;
+    line-height: 1;
+    text-decoration: none;
+    white-space: nowrap;
+}
+
+.encabezado-flotante .logo-inicio span {
+    color: #a81116;
+}
+
+.encabezado-flotante form {
+    position: relative;
+    order: 3;
+    width: 230px;
+    max-width: 25%;
+    margin-left: auto;
+}
+
+.encabezado-flotante input[type="search"] {
+    width: 100%;
+    padding: 10px 42px 10px 16px;
+    border: 1px solid #e1dfdd;
+    border-radius: 24px;
+    background-color: #ffffff;
+    font-family: "CbaMontserrat", Arial, sans-serif;
+    font-size: 0.78rem;
+}
+
+.encabezado-flotante form button {
+    position: absolute;
+    top: 50%;
+    right: 5px;
+    width: 34px;
+    height: 34px;
+    padding: 0;
+    transform: translateY(-50%);
+    border: 0;
+    border-radius: 50%;
+    background-color: transparent;
+    color: #111111;
+    font-size: 0;
+}
+
+.encabezado-flotante form button::before {
+    position: absolute;
+    top: 8px;
+    left: 8px;
+    width: 12px;
+    height: 12px;
+    border: 2px solid #111111;
+    border-radius: 50%;
+    content: "";
+}
+
+.encabezado-flotante form button::after {
+    position: absolute;
+    top: 21px;
+    left: 22px;
+    width: 8px;
+    height: 2px;
+    transform: rotate(45deg);
+    background-color: #111111;
+    content: "";
+}
+
+.encabezado-flotante .acciones-inicio {
+    display: flex;
+    align-items: center;
+    order: 4;
+    gap: 16px;
+}
+
+.encabezado-flotante .acciones-inicio a {
+    position: relative;
+}
+
+.encabezado-flotante .acciones-inicio img,
+.encabezado-flotante .boton-menu-inicio img {
+    width: 23px;
+    height: 23px;
+    filter: none;
+    transition: transform 0.35s ease, opacity 0.35s ease;
+}
+
+.encabezado-flotante .acciones-inicio a:hover img,
+.encabezado-flotante .boton-menu-inicio:hover img {
+    transform: translateY(-2px);
+    opacity: 0.75;
+}
+
+.encabezado-flotante form button:hover {
+    transform: translateY(-50%) scale(1.08);
+}
+
+@media (prefers-reduced-motion: reduce) {
+    a,
+    button,
+    .encabezado-flotante nav a::after,
+    .encabezado-flotante .acciones-inicio img,
+    .encabezado-flotante .boton-menu-inicio img,
+    .tarjeta-genero img,
+    .tarjeta-categoria img {
+        transition: none;
+    }
+}
+
+.encabezado-flotante #productos-seleccionados {
+    position: absolute;
+    top: -10px;
+    right: -10px;
+    padding: 0 4px;
+    border-radius: 12px;
+    background-color: #a81116;
+    color: #ffffff;
+    font-size: 0.62rem;
+    line-height: 1.5;
+}
+
+/* en pantallas chicas aparecen el botón del menú y los enlaces al tocarlo */
+@media (max-width: 768px) {
+    .encabezado-principal.encabezado-flotante {
+        flex-wrap: wrap;
+        gap: 12px;
+        height: auto;
+        min-height: 72px;
+        margin: 0 10px -16px;
+        padding: 10px 16px;
+        border-radius: 36px;
+    }
+
+    .encabezado-flotante .boton-menu-inicio {
+        display: block;
+        order: 1;
+        cursor: pointer;
+    }
+
+    .encabezado-flotante nav,
+    .encabezado-flotante form {
+        display: none;
+    }
+
+    .encabezado-flotante .acciones-inicio {
+        order: 2;
+        margin-left: auto;
+    }
+
+    .encabezado-flotante nav {
+        order: 3;
+        width: 100%;
+    }
+
+    .encabezado-flotante nav ul {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 8px;
+        padding: 8px 2px;
+    }
+
+    .encabezado-flotante form {
+        order: 4;
+        width: 100%;
+        max-width: none;
+        margin-left: 0;
+    }
+
+    .encabezado-flotante input[type="checkbox"]:checked ~ nav,
+    .encabezado-flotante input[type="checkbox"]:checked ~ form {
+        display: flex;
+    }
+
+    .encabezado-flotante input[type="checkbox"]:focus-visible + .boton-menu-inicio {
+        outline: 2px solid #a81116;
+        outline-offset: 4px;
+    }
+
+    .encabezado-flotante .logo-inicio {
+        font-size: 1.55rem;
     }
 }

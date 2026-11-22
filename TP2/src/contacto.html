@@ -13,46 +13,29 @@
 <body>
 
     
-    <header class="encabezado-principal">
-        <a href="index.html"><img src="./recursos/imagenes/logo-urban.png" alt="Logo de el emprendimiento"></a>
-        <h1>Contacto y consultas - cba.urban</h1>
-
-        <!-- menu hamburguesa -->
+    <header class="encabezado-principal encabezado-flotante">
+        <!-- el checkbox abre el menú en celular sin agregar javascript -->
         <input type="checkbox" id="menu-toggle">
-        <label for="menu-toggle" aria-label="Abrir o cerrar menú">
-            <img src="./recursos/imagenes/menu-hamburguesa.svg" alt="Menú">
+        <label class="boton-menu-inicio" for="menu-toggle" aria-label="Abrir o cerrar menú">
+            <img src="./recursos/imagenes/menu-hamburguesa.svg" alt="">
         </label>
-
-        
         <nav aria-label="Navegación principal">
             <ul>
-                <li><a href="index.html">Inicio</a></li>
-                <li><a href="catalogo.html">Catalogo</a></li>
-                <li><a href="ofertas.html">Ofertas</a></li>
-                <li><a href="contacto.html" aria-current="page">Contacto</a></li>
+                <li><a href="index.html" >Inicio</a></li>
+                <li><a href="./catalogo.html" >Catalogo</a></li>
+                <li><a href="./ofertas.html" >Ofertas</a></li>
+                <li><a href="./contacto.html" aria-current="page">Contacto</a></li>
             </ul>
         </nav>
-
-       
+        <a class="logo-inicio" href="index.html" aria-label="cba.urban, inicio">cba.<span>urban</span></a>
         <form action="./catalogo.html" method="get">
             <label for="buscar-nav">Buscar:</label>
             <input type="search" id="buscar-nav" name="q" placeholder="Buscar prendas...">
-            <button type="submit">Buscar</button>
+            <button type="submit" aria-label="Buscar"></button>
         </form>
-
-        
-        <ul>
-            <li>
-                <a href="./perfil.html">
-                    <img src="./recursos/imagenes/usuario.svg" alt="Mi perfil">
-                </a>
-            </li>
-            <li>
-                <a href="./carrito.html">
-                    <img src="./recursos/imagenes/carrito-de-compras.svg" alt="Carrito">
-                    <span id="productos-seleccionados">(0)</span>
-                </a>
-            </li>
+        <ul class="acciones-inicio">
+            <li><a href="./perfil.html" aria-label="Mi perfil"><img src="./recursos/imagenes/usuario.svg" alt=""></a></li>
+            <li><a href="./carrito.html" aria-label="Carrito"><img src="./recursos/imagenes/carrito-de-compras.svg" alt=""><span id="productos-seleccionados">(0)</span></a></li>
         </ul>
     </header>
 

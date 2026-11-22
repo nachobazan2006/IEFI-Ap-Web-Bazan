@@ -16,141 +16,105 @@
     </aside>
 
     
-    <header class="encabezado-principal">
-        <a href="index.html"><img src="./recursos/imagenes/logo-urban.png" alt="Logo de el emprendimiento"></a>
-        <h1>Ofertas en indumentaria urbana</h1>
+    <header class="encabezado-principal encabezado-flotante">
+        <!-- el checkbox abre el menú en celular sin agregar javascript -->
         <input type="checkbox" id="menu-toggle">
-        <label for="menu-toggle" aria-label="Abrir o cerrar menú"><img src="./recursos/imagenes/menu-hamburguesa.svg" alt="Menú"></label>
-
+        <label class="boton-menu-inicio" for="menu-toggle" aria-label="Abrir o cerrar menú">
+            <img src="./recursos/imagenes/menu-hamburguesa.svg" alt="">
+        </label>
         <nav aria-label="Navegación principal">
             <ul>
-                <li><a href="index.html">Inicio</a></li>
-                <li><a href="catalogo.html">Catalogo</a></li>
-                <li><a href="ofertas.html" aria-current="page">Ofertas</a></li>
-                <li><a href="contacto.html">Contacto</a></li>
+                <li><a href="index.html" >Inicio</a></li>
+                <li><a href="./catalogo.html" >Catalogo</a></li>
+                <li><a href="./ofertas.html" aria-current="page">Ofertas</a></li>
+                <li><a href="./contacto.html" >Contacto</a></li>
             </ul>
         </nav>
+        <a class="logo-inicio" href="index.html" aria-label="cba.urban, inicio">cba.<span>urban</span></a>
         <form action="./catalogo.html" method="get">
             <label for="buscar-nav">Buscar:</label>
             <input type="search" id="buscar-nav" name="q" placeholder="Buscar prendas...">
-            <button type="submit">Buscar</button>
+            <button type="submit" aria-label="Buscar"></button>
         </form>
-        <ul>
-            <li><a href="./perfil.html"><img src="./recursos/imagenes/usuario.svg" alt="Mi perfil"></a></li>
-            <li><a href="./carrito.html"><img src="./recursos/imagenes/carrito-de-compras.svg" alt="Carrito"><span id="productos-seleccionados">(0)</span></a></li>
+        <ul class="acciones-inicio">
+            <li><a href="./perfil.html" aria-label="Mi perfil"><img src="./recursos/imagenes/usuario.svg" alt=""></a></li>
+            <li><a href="./carrito.html" aria-label="Carrito"><img src="./recursos/imagenes/carrito-de-compras.svg" alt=""><span id="productos-seleccionados">(0)</span></a></li>
         </ul>
-
     </header>
 
-   
-        <main class="contenido-ofertas">
+    <main class="contenido-ofertas">
+        <!-- la misma foto del inicio acompaña el título de ofertas -->
+        <section class="portada-ofertas" aria-labelledby="titulo-ofertas">
+            <img src="./recursos/imagenes/retrato-campera-hero.png" alt="Modelo con campera urbana estampada">
+            <div class="portada-texto">
+                <h1 id="titulo-ofertas">Ofertas<span>.</span></h1>
+                <p>Encontrá tus favoritos a precios especiales.</p>
+                <span class="detalle-rojo-ofertas" aria-hidden="true"></span>
+                <strong>Hasta 40% OFF</strong>
+            </div>
+        </section>
 
-    <!-- Presentacion de ofertas -->
-    <section>
-        <h2>OFERTAS</h2>
-        <p>Hasta 40% OFF en productos seleccionados.</p>
-        <p>Aprovechá nuestros descuentos por tiempo limitado.</p>
-    </section>
+        <!-- estas son las cuatro prendas que ya tenían descuento -->
+        <section class="productos-ofertas" aria-labelledby="titulo-productos-ofertas">
+            <h2 id="titulo-productos-ofertas">Productos en <em>oferta</em></h2>
+            <span class="detalle-rojo-ofertas" aria-hidden="true"></span>
+            <div class="lista-ofertas">
+                <article class="tarjeta-oferta">
+                    <img src="./recursos/imagenes/realtree-urban.png" alt="Remera camuflada estilo Real Tree">
+                    <div class="datos-oferta">
+                        <h3>Remera Real Tree</h3>
+                        <p>Precio anterior: <del>$40.000</del></p>
+                        <p>Precio de oferta: <strong>$30.000</strong></p>
+                        <span class="descuento-oferta">25% OFF</span>
+                    </div>
+                </article>
+                <article class="tarjeta-oferta">
+                    <img src="./recursos/imagenes/argentina-urban.png" alt="Camiseta de la selección Argentina">
+                    <div class="datos-oferta">
+                        <h3>Camiseta selección Argentina</h3>
+                        <p>Precio anterior: <del>$30.000</del></p>
+                        <p>Precio de oferta: <strong>$21.000</strong></p>
+                        <span class="descuento-oferta">30% OFF</span>
+                    </div>
+                </article>
+                <article class="tarjeta-oferta">
+                    <img src="./recursos/imagenes/roja-urban.png" alt="Remera Urban roja">
+                    <div class="datos-oferta">
+                        <h3>Remera Urban Roja</h3>
+                        <p>Precio anterior: <del>$20.000</del></p>
+                        <p>Precio de oferta: <strong>$15.000</strong></p>
+                        <span class="descuento-oferta">25% OFF</span>
+                    </div>
+                </article>
+                <article class="tarjeta-oferta">
+                    <img src="./recursos/imagenes/verde-urban.png" alt="Remera Urban verde">
+                    <div class="datos-oferta">
+                        <h3>Remera Urban Verde</h3>
+                        <p>Precio anterior: <del>$35.000</del></p>
+                        <p>Precio de oferta: <strong>$21.000</strong></p>
+                        <span class="descuento-oferta">40% OFF</span>
+                    </div>
+                </article>
+            </div>
+        </section>
 
-    <!-- Productos en oferta -->
-    <section>
-        <h2>Productos en oferta</h2>
-
-        <article>
-            <img src="./recursos/imagenes/realtree-urban.png"
-                 alt="Remera camuflada estilo Real Tree">
-
-            <h3>Remera Real Tree</h3>
-
-            <p>
-                Precio anterior: <del>$40.000</del>
-            </p>
-
-            <p>
-                Precio de oferta: <strong>$30.000</strong>
-            </p>
-
-            <p>25% OFF</p>
-
-            <p>Ficha próximamente disponible</p>
-        </article>
-
-        <article>
-            <img src="./recursos/imagenes/argentina-urban.png"
-                 alt="Camiseta de la selección Argentina">
-
-            <h3>Camiseta selección Argentina</h3>
-
-            <p>
-                Precio anterior: <del>$30.000</del>
-            </p>
-
-            <p>
-                Precio de oferta: <strong>$21.000</strong>
-            </p>
-
-            <p>30% OFF</p>
-
-            <p>Ficha próximamente disponible</p>
-        </article>
-
-        <article>
-            <img src="./recursos/imagenes/roja-urban.png"
-                 alt="Remera Urban roja">
-
-            <h3>Remera Urban Roja</h3>
-
-            <p>
-                Precio anterior: <del>$20.000</del>
-            </p>
-
-            <p>
-                Precio de oferta: <strong>$15.000</strong>
-            </p>
-
-            <p>25% OFF</p>
-
-            <p>Ficha próximamente disponible</p>
-        </article>
-
-        <article>
-            <img src="./recursos/imagenes/verde-urban.png"
-                 alt="Remera Urban verde">
-
-            <h3>Remera Urban Verde</h3>
-
-            <p>
-                Precio anterior: <del>$35.000</del>
-            </p>
-
-            <p>
-                Precio de oferta: <strong>$21.000</strong>
-            </p>
-
-            <p>40% OFF</p>
-
-            <p>Ficha próximamente disponible</p>
-        </article>
-
-    </section>
-
-    <!-- Información de las promociones -->
-    <section>
-        <h2>Información de las ofertas</h2>
-
-        <ul>
-            <li>Promociones válidas hasta agotar stock.</li>
-            <li>Envíos disponibles a todo el país.</li>
-            <li>Hasta 3 cuotas sin interés.</li>
-            <li>Los descuentos no son acumulables con otras promociones.</li>
-        </ul>
-
-        <p>
-            <a href="catalogo.html">Ver catálogo completo</a>
-        </p>
-    </section>
-
-</main>
+        <!-- acá resumimos las condiciones y dejamos el enlace al catálogo -->
+        <section class="informacion-ofertas" aria-labelledby="titulo-informacion-ofertas">
+            <div class="informacion-interior">
+                <div class="informacion-titulo">
+                    <h2 id="titulo-informacion-ofertas">Información de las <em>ofertas</em></h2>
+                    <span class="detalle-rojo-ofertas" aria-hidden="true"></span>
+                </div>
+                <ul>
+                    <li><span aria-hidden="true">◇</span>Promociones válidas hasta agotar stock.</li>
+                    <li><span aria-hidden="true">▱</span>Envíos disponibles a todo el país.</li>
+                    <li><span aria-hidden="true">▣</span>Hasta 3 cuotas sin interés.</li>
+                    <li><span aria-hidden="true">▤</span>Los descuentos no son acumulables con otras promociones.</li>
+                </ul>
+                <a class="enlace-catalogo-ofertas" href="catalogo.html">Ver catálogo completo <span aria-hidden="true">→</span></a>
+            </div>
+        </section>
+    </main>
       
 
     

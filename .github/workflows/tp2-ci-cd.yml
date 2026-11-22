@@ -1,0 +1,56 @@
+name: Pruebas y despliegue TP2
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  pruebas:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: TP2
+    steps:
+      - name: Obtener el repositorio
+        uses: actions/checkout@v4
+      - name: Configurar Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+          cache: npm
+          cache-dependency-path: TP2/package-lock.json
+      - name: Instalar dependencias
+        run: npm ci
+      - name: Ejecutar pruebas
+        run: npm test
+
+  despliegue:
+    # este trabajo espera las pruebas y la habilitación del despliegue
+    needs: pruebas
+    if: github.event_name == 'push' && github.ref == 'refs/heads/master' && vars.HABILITAR_DESPLIEGUE == 'true'
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: TP2
+    env:
+      VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+      VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+      VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+    steps:
+      - name: Obtener el repositorio
+        uses: actions/checkout@v4
+      - name: Configurar Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+      - name: Instalar Vercel CLI
+        run: npm install --global vercel@latest
+      - name: Preparar proyecto de Vercel
+        run: vercel pull --yes --environment=production --token="$VERCEL_TOKEN"
+      - name: Preparar archivos para desplegar
+        run: vercel build --prod --token="$VERCEL_TOKEN"
+      - name: Desplegar en Vercel
+        run: vercel deploy --prebuilt --prod --token="$VERCEL_TOKEN"

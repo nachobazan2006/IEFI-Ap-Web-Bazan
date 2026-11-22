@@ -8,112 +8,118 @@
     <script type="module" src="./recursos/js/carrito.js"></script>
 </head>
 <body>
-
-    <!-- Barra superior de anuncios -->
-     <aside class="barra-anuncios" aria-label="Promociones">
+    <!-- esta franja de anuncios queda como estaba en el sitio -->
+    <aside class="barra-anuncios" aria-label="Promociones">
         <p>ENVÍOS A TODO EL PAÍS | 3 CUOTAS SIN INTERÉS</p>
     </aside>
 
-    
-    <header class="encabezado-principal">
-        <a href="index.html"><img src="./recursos/imagenes/logo-urban.png" alt="Logo de el emprendimiento"></a>
-        <h1>Inicio: ropa urbana, ofertas y categorías</h1>
-
-        <!-- menu hamburguesa -->
+    <header class="encabezado-principal encabezado-flotante">
+        <!-- el checkbox abre el menú en celular sin agregar javascript -->
         <input type="checkbox" id="menu-toggle">
-        <label for="menu-toggle" aria-label="Abrir o cerrar menú">
-            <img src="./recursos/imagenes/menu-hamburguesa.svg" alt="Menú">
+        <label class="boton-menu-inicio" for="menu-toggle" aria-label="Abrir o cerrar menú">
+            <img src="./recursos/imagenes/menu-hamburguesa.svg" alt="">
         </label>
-
-       
         <nav aria-label="Navegación principal">
             <ul>
                 <li><a href="index.html" aria-current="page">Inicio</a></li>
-                <li><a href="./catalogo.html">Catalogo</a></li>
-                <li><a href="./ofertas.html">Ofertas</a></li>
-                <li><a href="./contacto.html">Contacto</a></li>
+                <li><a href="./catalogo.html" >Catalogo</a></li>
+                <li><a href="./ofertas.html" >Ofertas</a></li>
+                <li><a href="./contacto.html" >Contacto</a></li>
             </ul>
         </nav>
-
+        <a class="logo-inicio" href="index.html" aria-label="cba.urban, inicio">cba.<span>urban</span></a>
         <form action="./catalogo.html" method="get">
             <label for="buscar-nav">Buscar:</label>
             <input type="search" id="buscar-nav" name="q" placeholder="Buscar prendas...">
-            <button type="submit">Buscar</button>
+            <button type="submit" aria-label="Buscar"></button>
         </form>
-
-        
-        <ul>
-            <li>
-                <a href="./perfil.html">
-                    <img src="./recursos/imagenes/usuario.svg" alt="Mi perfil">
-                </a>
-            </li>
-            <li>
-                <a href="./carrito.html">
-                    <img src="./recursos/imagenes/carrito-de-compras.svg" alt="Carrito">
-                    <span id="productos-seleccionados">(0)</span>
-                </a>
-            </li>
+        <ul class="acciones-inicio">
+            <li><a href="./perfil.html" aria-label="Mi perfil"><img src="./recursos/imagenes/usuario.svg" alt=""></a></li>
+            <li><a href="./carrito.html" aria-label="Carrito"><img src="./recursos/imagenes/carrito-de-compras.svg" alt=""><span id="productos-seleccionados">(0)</span></a></li>
         </ul>
     </header>
 
-    <main class="contenido-principal">
-
-        <!-- mas vendidos -->
-        <section>
-            <h2>MÁS VENDIDOS</h2>
-            <p>Los favoritos de la semana. Estilo que marca tendencia.</p>
-            <img src="./recursos/imagenes/buzo-gris-urban.png" alt="Buzo Urban colección semanal">
-            <p><a href="./catalogo.html">Ver colección</a></p>
+    <main class="contenido-principal inicio-pagina">
+        <!-- la foto ocupa el hero y deja el espacio libre para el texto -->
+        <section class="hero-inicio" aria-labelledby="titulo-inicio">
+            <img class="hero-foto" src="./recursos/imagenes/retrato-campera-hero.png" alt="Modelo con campera estampada en una producción de moda urbana">
+            <div class="hero-texto">
+                <h1 id="titulo-inicio"><span>La calle es</span><em>tuya<span class="punto-rojo">.</span></em></h1>
+                <p>Descubrí nuestra colección urbana.</p>
+                <a class="boton-principal" href="./catalogo.html">Explorar colección <span aria-hidden="true">→</span></a>
+            </div>
         </section>
 
-        <!-- secciones por genero -->
-        <section>
-            <h2>Géneros</h2>
-
-            <article>
-                <h3>HOMBRES</h3>
-                <img src="./recursos/imagenes/fit-urban-hombre.png" alt="Ropa urbana para hombres">
-                <p><a href="./catalogo.html">Comprar</a></p>
-            </article>
-
-            <article>
-                <h3>MUJERES</h3>
-                <img src="./recursos/imagenes/fit-urban-mujer.png" alt="Ropa urbana para mujeres">
-                <p><a href="./catalogo.html">Comprar</a></p>
-            </article>
+        <!-- acá destacamos el buzo que más sale -->
+        <section class="mas-vendidos" aria-labelledby="titulo-vendidos">
+            <div class="vendidos-texto">
+                <h2 id="titulo-vendidos"><span>Más</span> <em>vendidos</em></h2>
+                <span class="raya-roja" aria-hidden="true"></span>
+                <p>Los favoritos de la semana.<br>Estilo que marca tendencia.</p>
+                <a class="boton-principal" href="./catalogo.html">Ver colección <span aria-hidden="true">→</span></a>
+            </div>
+            <img class="vendidos-foto" src="./recursos/imagenes/buzo-gris-urban.png" alt="Buzo gris oscuro de cba.urban">
         </section>
 
-        <!-- Banner de Ofertas -->
-        <section>
-            <h2>OFERTAS</h2>
-            <p>Hasta 40% OFF en productos seleccionados</p>
-            <p><a href="./ofertas.html">Ver ofertas</a></p>
+        <!-- estas dos tarjetas llevan a la colección de cada género -->
+        <section class="generos" aria-labelledby="titulo-generos">
+            <h2 class="titulo-editorial" id="titulo-generos">Géneros</h2>
+            <span class="raya-roja" aria-hidden="true"></span>
+            <div class="generos-lista">
+                <article class="tarjeta-genero">
+                    <a href="./catalogo.html">
+                        <img src="./recursos/imagenes/fit-urban-hombre.png" alt="Modelo con ropa urbana masculina">
+                        <div class="genero-contenido">
+                            <h3>Hombres</h3>
+                            <span class="boton-contorno">Comprar <span aria-hidden="true">→</span></span>
+                        </div>
+                    </a>
+                </article>
+                <article class="tarjeta-genero">
+                    <a href="./catalogo.html">
+                        <img src="./recursos/imagenes/fit-urban-mujer.png" alt="Modelo con ropa urbana femenina">
+                        <div class="genero-contenido">
+                            <h3>Mujeres</h3>
+                            <span class="boton-contorno">Comprar <span aria-hidden="true">→</span></span>
+                        </div>
+                    </a>
+                </article>
+            </div>
         </section>
 
-        <!-- Categorías destacadas -->
-        <section>
-            <h2>Categorías</h2>
-
-            <article>
-                <h3>REMERAS</h3>
-                <img src="./recursos/imagenes/remera-blanca-urban.png" alt="Remera Urban">
-                <p><a href="./catalogo.html">Ver todo</a></p>
-            </article>
-
-            <article>
-                <h3>PANTALÓN</h3>
-                <img src="./recursos/imagenes/cargo-blanco-urban.png" alt="Pantalón Urban">
-                <p><a href="./catalogo.html">Ver todo</a></p>
-            </article>
-
-            <article>
-                <h3>BUZOS</h3>
-                <img src="./recursos/imagenes/buzo-urban.png" alt="Buzo Urban">
-                <p><a href="./catalogo.html">Ver todo</a></p>
-            </article>
+        <!-- banner oscuro con acceso directo a las ofertas -->
+        <section class="banner-ofertas" aria-labelledby="titulo-ofertas">
+            <h2 class="titulo-editorial" id="titulo-ofertas">Ofertas</h2>
+            <span class="separador-rojo" aria-hidden="true">/</span>
+            <p>Hasta <strong>40% OFF</strong><br>en productos seleccionados.</p>
+            <a class="boton-claro" href="./ofertas.html">Ver ofertas <span aria-hidden="true">→</span></a>
         </section>
 
+        <!-- accesos con las fotos de prendas que ya estaban en el proyecto -->
+        <section class="categorias" aria-labelledby="titulo-categorias">
+            <h2 class="titulo-editorial" id="titulo-categorias">Categorías</h2>
+            <span class="raya-roja" aria-hidden="true"></span>
+            <div class="categorias-lista">
+                <article class="tarjeta-categoria">
+                    <a href="./catalogo.html">
+                        <img src="./recursos/imagenes/remera-blanca-urban.png" alt="Remera blanca urbana">
+                        <h3>Remeras <span aria-hidden="true">→</span></h3>
+                    </a>
+                </article>
+                <article class="tarjeta-categoria">
+                    <a href="./catalogo.html">
+                        <img src="./recursos/imagenes/cargo-blanco-urban.png" alt="Pantalón cargo claro">
+                        <h3>Pantalón <span aria-hidden="true">→</span></h3>
+                    </a>
+                </article>
+                <article class="tarjeta-categoria">
+                    <a href="./catalogo.html">
+                        <img src="./recursos/imagenes/buzo-urban.png" alt="Buzo negro urbano">
+                        <h3>Buzos <span aria-hidden="true">→</span></h3>
+                    </a>
+                </article>
+            </div>
+        </section>
     </main>
 
     <footer class="pie-de-pagina-principal">
@@ -128,6 +134,5 @@
         </nav>
         <p>&copy; 2026 cba.urban. Todos los derechos reservados.</p>
     </footer>
-
 </body>
 </html>

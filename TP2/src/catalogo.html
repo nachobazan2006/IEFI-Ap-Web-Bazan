@@ -13,32 +13,46 @@
 
 <body>
 
-    <header class="encabezado-principal">
-        <a href="index.html"><img src="./recursos/imagenes/logo-urban.png" alt="Logo de el emprendimiento"></a>
-        <h1>Catálogo de indumentaria urbana</h1>
+    <!-- esta franja muestra la promoción arriba del catálogo -->
+    <aside class="barra-anuncios" aria-label="Promociones">
+        <p>ENVÍOS A TODO EL PAÍS | 3 CUOTAS SIN INTERÉS</p>
+    </aside>
+
+    <header class="encabezado-principal encabezado-flotante">
+        <!-- el checkbox abre el menú en celular sin agregar javascript -->
         <input type="checkbox" id="menu-toggle">
-        <label for="menu-toggle" aria-label="Abrir o cerrar menú"><img src="./recursos/imagenes/menu-hamburguesa.svg" alt="Menú"></label>
+        <label class="boton-menu-inicio" for="menu-toggle" aria-label="Abrir o cerrar menú">
+            <img src="./recursos/imagenes/menu-hamburguesa.svg" alt="">
+        </label>
         <nav aria-label="Navegación principal">
             <ul>
-                <li><a href="index.html">Inicio</a></li>
-                <li><a href="catalogo.html" aria-current="page">Catalogo</a></li>
-                <li><a href="ofertas.html">Ofertas</a></li>
-                <li><a href="contacto.html">Contacto</a></li>
+                <li><a href="index.html" >Inicio</a></li>
+                <li><a href="./catalogo.html" aria-current="page">Catalogo</a></li>
+                <li><a href="./ofertas.html" >Ofertas</a></li>
+                <li><a href="./contacto.html" >Contacto</a></li>
             </ul>
         </nav>
+        <a class="logo-inicio" href="index.html" aria-label="cba.urban, inicio">cba.<span>urban</span></a>
         <form action="./catalogo.html" method="get">
             <label for="buscar-nav">Buscar:</label>
             <input type="search" id="buscar-nav" name="q" placeholder="Buscar prendas...">
-            <button type="submit">Buscar</button>
+            <button type="submit" aria-label="Buscar"></button>
         </form>
-        <ul>
-            <li><a href="./perfil.html"><img src="./recursos/imagenes/usuario.svg" alt="Mi perfil"></a></li>
-            <li><a href="./carrito.html"><img src="./recursos/imagenes/carrito-de-compras.svg" alt="Carrito"><span id="productos-seleccionados">(0)</span></a></li>
+        <ul class="acciones-inicio">
+            <li><a href="./perfil.html" aria-label="Mi perfil"><img src="./recursos/imagenes/usuario.svg" alt=""></a></li>
+            <li><a href="./carrito.html" aria-label="Carrito"><img src="./recursos/imagenes/carrito-de-compras.svg" alt=""><span id="productos-seleccionados">(0)</span></a></li>
         </ul>
     </header>
 
     <main class="contenido-catalogo">
-        <h2>Catálogo de Indumentaria</h2>
+        <!-- el banner presenta la colección sin usar una imagen de texto -->
+        <section class="presentacion-catalogo" aria-labelledby="titulo-catalogo">
+            <div class="presentacion-interior">
+                <p class="etiqueta-catalogo">Nuestra colección <span aria-hidden="true"></span></p>
+                <h1 id="titulo-catalogo">Todas las prendas<span>.</span></h1>
+                <p class="descripcion-catalogo">Encontrá tu próximo favorito. Prendas para tu estilo urbano.</p>
+            </div>
+        </section>
 
         <!-- notificación de compra -->
         <dialog id="dialogo">
@@ -49,47 +63,64 @@
             </form>
         </dialog>
 
-        <!-- Filtros del catálogo -->
-        <details class="filtros-catalogo">
-            <summary>Filtrar</summary>
-            <aside>
-                <h3>Filtros</h3>
-                <form class="formulario-catalogo" action="catalogo.html" method="get">
-                    <div>
-                        <label for="filtro-categoria">Categoría:</label>
-                        <select id="filtro-categoria" name="cat">
-                            <option value="todas">Todas las categorías</option>
-                            <option value="remeras">Remeras</option>
-                            <option value="pantalones">Pantalones</option>
-                            <option value="buzos">Buzos</option>
-                            <option value="camperas">Camperas</option>
-                        </select>
+        <div class="cuerpo-catalogo">
+            <!-- los filtros quedan a la vista y se aplican al cambiar cada opción -->
+            <details class="filtros-catalogo" open>
+                <summary>Filtros</summary>
+                <aside aria-label="Filtros del catálogo">
+                    <h2>Filtros</h2>
+                    <form class="formulario-catalogo" action="catalogo.html" method="get">
+                        <div>
+                            <label for="filtro-categoria">Categoría</label>
+                            <select id="filtro-categoria" name="cat">
+                                <option value="todas">Todas las categorías</option>
+                                <option value="remeras">Remeras</option>
+                                <option value="pantalones">Pantalones</option>
+                                <option value="buzos">Buzos</option>
+                                <option value="camperas">Camperas</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label for="filtro-talle">Talle</label>
+                            <select id="filtro-talle" name="talle">
+                                <option value="todos">Todos los talles</option>
+                                <option value="S">S</option>
+                                <option value="M">M</option>
+                                <option value="L">L</option>
+                                <option value="XL">XL</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label for="orden-catalogo">Ordenar por</label>
+                            <select id="orden-catalogo" name="orden">
+                                <option value="relevantes">Más relevantes</option>
+                                <option value="precio-asc">Menor precio</option>
+                                <option value="precio-desc">Mayor precio</option>
+                                <option value="nombre">Nombre A–Z</option>
+                            </select>
+                        </div>
+                        <button type="button" id="boton-limpiar-filtros">↶ &nbsp; Limpiar filtros</button>
+                    </form>
+                </aside>
+            </details>
+
+            <!-- la cantidad y los botones de vista acompañan a la grilla -->
+            <section class="productos-catalogo" aria-labelledby="titulo-productos">
+                <div class="barra-productos">
+                    <div class="resumen-productos">
+                        <h2 id="titulo-productos">Colección urbana</h2>
+                        <p id="cantidad-productos" aria-live="polite">Cargando productos...</p>
                     </div>
-
-                    <div>
-                        <label for="filtro-talle">Talle:</label>
-                        <select id="filtro-talle" name="talle">
-                            <option value="todos">Todos los talles</option>
-                            <option value="S">S</option>
-                            <option value="M">M</option>
-                            <option value="L">L</option>
-                            <option value="XL">XL</option>
-                        </select>
+                    <div class="vistas-catalogo" role="group" aria-label="Vista de productos">
+                        <button type="button" id="vista-cuadricula" class="vista-activa" aria-label="Vista de cuadrícula" aria-pressed="true">▦</button>
+                        <button type="button" id="vista-lista" aria-label="Vista de lista" aria-pressed="false">☰</button>
                     </div>
-
-                    <button type="button" id="boton-aplicar-filtros">Aplicar filtros</button>
-                    <button type="button" id="boton-limpiar-filtros">Ver todos</button>
-                </form>
-            </aside>
-        </details>
-
-        <!-- listado dinamico de prendas renderizado via javascript -->
-        <section>
-            <h3>Prendas</h3>
-            <div id="contenedor-productos" class="seccion-prendas-catalogo">
-                <!-- se renderiza dinamicamente via javascript -->
-            </div>
-        </section>
+                </div>
+                <div id="contenedor-productos" class="seccion-prendas-catalogo">
+                    <!-- las prendas se cargan desde el archivo de productos -->
+                </div>
+            </section>
+        </div>
 
     </main>
 

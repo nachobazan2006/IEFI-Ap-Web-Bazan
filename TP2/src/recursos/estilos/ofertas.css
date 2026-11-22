@@ -1,100 +1,351 @@
-/* estilos propios del contenido de ofertas */
-.contenido-ofertas
-{
-    max-width: 1100px;
-    margin: 0 auto;
-    padding: 40px 24px;
-}
-
-.contenido-ofertas section
-{
-    margin-bottom: 32px;
-}
-
-.contenido-ofertas section:first-child
-{
-    padding: 32px;
-    background-color: #000000;
-    color: #ffffff;
-}
-
-.contenido-ofertas h2
-{
-    margin-bottom: 12px;
-    font-size: 2rem;
-}
-
-/* la segunda seccion es la grilla de productos en oferta */
-.contenido-ofertas section:nth-child(2)
-{
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 16px;
-}
-
-.contenido-ofertas section:nth-child(2) h2
-{
-    grid-column: 1 / -1;
-}
-
-.contenido-ofertas article
-{
-    display: flex;
-    flex-direction: column;
-    padding: 12px;
-    border: 1px solid #dddddd;
+/* estos estilos se usan solo en la página de ofertas */
+.contenido-ofertas {
     background-color: #ffffff;
+    color: #111111;
+    font-family: "CbaMontserrat", Arial, sans-serif;
 }
 
-.contenido-ofertas article img
-{
+/* la foto queda detrás del título y del menú de arriba */
+.portada-ofertas {
+    position: relative;
+    min-height: 280px;
+    overflow: hidden;
+    background-color: #e7e5e5;
+}
+
+.portada-ofertas > img {
+    position: absolute;
+    top: 0;
+    left: 0;
     width: 100%;
-    height: 260px;
+    height: 100%;
     object-fit: cover;
+    object-position: center top;
 }
 
-.contenido-ofertas article h3,
-.contenido-ofertas article p
-{
-    margin-top: 12px;
+.portada-texto {
+    position: relative;
+    max-width: 1012px;
+    margin: 0 auto;
+    padding: 78px 0 0;
 }
 
-.contenido-ofertas article a
-{
-    margin-top: auto;
-    padding-top: 12px;
-    color: #000000;
-    font-weight: bold;
+.portada-texto h1 {
+    font-family: "CbaInstrument", Georgia, serif;
+    font-size: clamp(68px, 6vw, 96px);
+    font-style: italic;
+    font-weight: 400;
+    line-height: 1;
 }
 
-.contenido-ofertas article a:hover
-{
-    text-decoration: underline;
+.portada-texto h1 span {
+    color: #a81116;
 }
 
-.contenido-ofertas p
-{
-    margin-top: 24px;
+.portada-texto p {
+    margin-top: 3px;
+    font-size: 20px;
 }
 
-@media (max-width: 900px)
-{
-    .contenido-ofertas section:nth-child(2)
-    {
-        grid-template-columns: repeat(2, 1fr);
+.detalle-rojo-ofertas {
+    display: block;
+    width: 45px;
+    height: 3px;
+    background-color: #a81116;
+}
+
+.portada-texto .detalle-rojo-ofertas {
+    margin: 8px 0 15px;
+}
+
+.portada-texto strong {
+    display: inline-block;
+    padding: 5px 25px;
+    background-color: #080808;
+    color: #ffffff;
+    font-family: "CbaPoppins", Arial, sans-serif;
+    font-size: 30px;
+    font-weight: 700;
+    line-height: 1.2;
+}
+
+/* la grilla muestra las cuatro prendas que ya estaban en ofertas */
+.productos-ofertas {
+    max-width: 1172px;
+    margin: 0 auto;
+    padding: 23px 0 26px;
+}
+
+.productos-ofertas h2 {
+    font-family: "CbaPoppins", Arial, sans-serif;
+    font-size: 31px;
+    font-weight: 700;
+    line-height: 1.2;
+}
+
+.productos-ofertas h2 em,
+.informacion-titulo h2 em {
+    font-family: "CbaInstrument", Georgia, serif;
+    font-style: italic;
+    font-weight: 400;
+}
+
+.productos-ofertas .detalle-rojo-ofertas {
+    margin: 9px 0 19px;
+}
+
+.lista-ofertas {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 22px;
+}
+
+.tarjeta-oferta {
+    min-width: 0;
+    border: 1px solid #e3e3e3;
+    border-radius: 3px;
+    background-color: #fbfbfb;
+    overflow: hidden;
+}
+
+.tarjeta-oferta > img {
+    width: 100%;
+    height: 200px;
+    background-color: #eaeaea;
+    object-fit: contain;
+}
+
+.datos-oferta {
+    padding: 10px 24px 13px;
+}
+
+.datos-oferta h3 {
+    margin-bottom: 2px;
+    font-family: "CbaPoppins", Arial, sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    line-height: 1.25;
+}
+
+.datos-oferta p {
+    font-size: 13px;
+    line-height: 1.6;
+}
+
+.datos-oferta strong {
+    margin-left: 4px;
+    font-family: "CbaPoppins", Arial, sans-serif;
+    font-size: 15px;
+    font-weight: 700;
+}
+
+.descuento-oferta {
+    display: inline-block;
+    min-width: 92px;
+    margin-top: 5px;
+    padding: 3px 12px;
+    background-color: #e9e9e9;
+    font-family: "CbaPoppins", Arial, sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    text-align: center;
+}
+
+/* esta franja resume las condiciones antes de ir al catálogo */
+.informacion-ofertas {
+    background-color: #eeeeee;
+}
+
+.informacion-interior {
+    display: flex;
+    align-items: center;
+    gap: 35px;
+    max-width: 1360px;
+    min-height: 112px;
+    margin: 0 auto;
+    padding: 15px 0;
+}
+
+.informacion-titulo {
+    flex: 0 0 316px;
+    padding-right: 30px;
+    border-right: 1px solid #777777;
+}
+
+.informacion-titulo h2 {
+    font-family: "CbaPoppins", Arial, sans-serif;
+    font-size: 29px;
+    font-weight: 700;
+    line-height: .95;
+}
+
+.informacion-titulo h2 em {
+    display: block;
+    font-size: 1.25em;
+}
+
+.informacion-titulo .detalle-rojo-ofertas {
+    margin-top: 10px;
+}
+
+.informacion-ofertas ul {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 20px;
+    flex: 1;
+}
+
+.informacion-ofertas li {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-family: "CbaMontserrat", Arial, sans-serif;
+    font-size: 11px;
+    line-height: 1.35;
+}
+
+.informacion-ofertas li span {
+    flex: 0 0 28px;
+    font-family: Arial, sans-serif;
+    font-size: 29px;
+    line-height: 1;
+    text-align: center;
+}
+
+.enlace-catalogo-ofertas {
+    display: inline-flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    flex: 0 0 auto;
+    min-height: 40px;
+    padding: 0 18px;
+    background-color: #080808;
+    color: #ffffff;
+    font-family: "CbaPoppins", Arial, sans-serif;
+    font-size: 12px;
+    font-weight: 700;
+    text-decoration: none;
+}
+
+.enlace-catalogo-ofertas:hover {
+    background-color: #a81116;
+    transform: translateY(-2px);
+}
+
+@media (max-width: 1450px) {
+    .portada-texto,
+    .productos-ofertas,
+    .informacion-interior {
+        width: calc(100% - 80px);
+    }
+
+    .informacion-interior {
+        gap: 20px;
+    }
+
+    .informacion-titulo {
+        flex-basis: 270px;
+    }
+
+    .informacion-ofertas ul {
+        gap: 12px;
     }
 }
 
-/* en celular las ofertas quedan una debajo de otra */
-@media (max-width: 500px)
-{
-    .contenido-ofertas
-    {
-        padding: 24px 16px;
+@media (max-width: 1100px) {
+    .informacion-interior {
+        flex-wrap: wrap;
     }
 
-    .contenido-ofertas section:nth-child(2)
-    {
+    .informacion-titulo {
+        flex-basis: 100%;
+        border-right: 0;
+    }
+
+    .informacion-titulo h2 em {
+        display: inline;
+    }
+
+    .informacion-ofertas ul {
+        flex-basis: calc(100% - 240px);
+    }
+}
+
+@media (max-width: 800px) {
+    .portada-texto,
+    .productos-ofertas,
+    .informacion-interior {
+        width: calc(100% - 40px);
+    }
+
+    .portada-ofertas > img {
+        object-position: 60% top;
+        opacity: .75;
+    }
+
+    .portada-texto {
+        padding-top: 95px;
+    }
+
+    .lista-ofertas {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .informacion-ofertas ul {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        flex-basis: 100%;
+    }
+}
+
+@media (max-width: 500px) {
+    .portada-ofertas {
+        min-height: 315px;
+    }
+
+    .portada-ofertas > img {
+        object-position: 64% top;
+        opacity: .25;
+    }
+
+    .portada-texto h1 {
+        font-size: 70px;
+    }
+
+    .portada-texto p {
+        font-size: 16px;
+    }
+
+    .portada-texto strong {
+        font-size: 22px;
+    }
+
+    .productos-ofertas h2 {
+        font-size: 26px;
+    }
+
+    .lista-ofertas {
+        gap: 12px;
+    }
+
+    .tarjeta-oferta > img {
+        height: 155px;
+    }
+
+    .datos-oferta {
+        padding: 9px;
+    }
+
+    .datos-oferta h3,
+    .datos-oferta p {
+        font-size: 11px;
+    }
+
+    .datos-oferta strong {
+        font-size: 12px;
+    }
+
+    .informacion-ofertas ul {
         grid-template-columns: 1fr;
     }
 }

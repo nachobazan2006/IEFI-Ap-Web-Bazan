@@ -10,11 +10,14 @@ async function inicializarCatalogo() {
         contenedor: document.getElementById('contenedor-productos'),
         dialogo: document.getElementById('dialogo'),
         contador: document.getElementById('productos-seleccionados'),
-        botonFiltrar: document.getElementById('boton-aplicar-filtros'),
         botonLimpiar: document.getElementById('boton-limpiar-filtros'),
         categoria: document.getElementById('filtro-categoria'),
         talle: document.getElementById('filtro-talle'),
-        buscar: document.getElementById('buscar-nav')
+        orden: document.getElementById('orden-catalogo'),
+        buscar: document.getElementById('buscar-nav'),
+        cantidad: document.getElementById('cantidad-productos'),
+        vistaCuadricula: document.getElementById('vista-cuadricula'),
+        vistaLista: document.getElementById('vista-lista')
     }
     let productos
 
@@ -36,6 +39,17 @@ async function inicializarCatalogo() {
         }
         if (elementos.talle && elementos.talle.value !== 'todos') {
             productosFiltrados = filtrarPorTalle(productosFiltrados, elementos.talle.value)
+        }
+        if (elementos.orden?.value === 'precio-asc') {
+            productosFiltrados.sort((a, b) => a.precio - b.precio)
+        } else if (elementos.orden?.value === 'precio-desc') {
+            productosFiltrados.sort((a, b) => b.precio - a.precio)
+        } else if (elementos.orden?.value === 'nombre') {
+            productosFiltrados.sort((a, b) => a.nombre.localeCompare(b.nombre, 'es'))
+        }
+        if (elementos.cantidad) {
+            const total = productosFiltrados.length
+            elementos.cantidad.textContent = `${total} ${total === 1 ? 'producto' : 'productos'}`
         }
         renderizarCatalogo(elementos.contenedor, productosFiltrados)
         enlazarEventosProductos(elementos, productos, carrito)
@@ -68,14 +82,29 @@ function enlazarEventosProductos(elementos, productos, carrito) {
 }
 
 function enlazarEventosFiltros(elementos, actualizarCatalogo) {
-    elementos.botonFiltrar?.addEventListener('click', actualizarCatalogo)
+    elementos.categoria?.addEventListener('change', actualizarCatalogo)
+    elementos.talle?.addEventListener('change', actualizarCatalogo)
+    elementos.orden?.addEventListener('change', actualizarCatalogo)
     elementos.botonLimpiar?.addEventListener('click', () => {
         if (elementos.categoria) elementos.categoria.value = 'todas'
         if (elementos.talle) elementos.talle.value = 'todos'
+        if (elementos.orden) elementos.orden.value = 'relevantes'
         if (elementos.buscar) elementos.buscar.value = ''
         actualizarCatalogo()
     })
     elementos.buscar?.addEventListener('input', actualizarCatalogo)
+
+    // cambiamos solo la forma de mostrar las mismas prendas
+    elementos.vistaCuadricula?.addEventListener('click', () => cambiarVista(elementos, false))
+    elementos.vistaLista?.addEventListener('click', () => cambiarVista(elementos, true))
+}
+
+function cambiarVista(elementos, mostrarLista) {
+    elementos.contenedor.classList.toggle('vista-lista', mostrarLista)
+    elementos.vistaCuadricula.classList.toggle('vista-activa', !mostrarLista)
+    elementos.vistaLista.classList.toggle('vista-activa', mostrarLista)
+    elementos.vistaCuadricula.setAttribute('aria-pressed', String(!mostrarLista))
+    elementos.vistaLista.setAttribute('aria-pressed', String(mostrarLista))
 }
 
 inicializarCatalogo()

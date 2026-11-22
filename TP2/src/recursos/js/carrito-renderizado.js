@@ -7,13 +7,8 @@ function actualizarContadorCarrito(elemento, carrito) {
 }
 
 function renderizarCarrito(contenedor, carrito, productos, elementos, costoEnvioFijo) {
-    const { titulo, resumenSubtotal, resumenEnvio, resumenTotal, costoEnvioTexto } = elementos
+    const { resumenSubtotal, resumenEnvio, resumenTotal, costoEnvioTexto } = elementos
     actualizarContadorCarrito(elementos.contador, carrito)
-
-    if (titulo) {
-        const cantidadTotal = carrito.reduce((total, articulo) => total + articulo.cantidad, 0)
-        titulo.textContent = `MI CARRITO (${cantidadTotal})`
-    }
 
     if (carrito.length === 0) {
         contenedor.innerHTML = `
@@ -40,16 +35,24 @@ function renderizarCarrito(contenedor, carrito, productos, elementos, costoEnvio
         if (!producto) return ''
 
         return `
-            <article>
+            <article class="producto-en-carrito">
                 <img src="${producto.imagen}" alt="${producto.nombre}">
-                <div>
-                    <h4>${producto.nombre}</h4>
-                    <p>Color: ${linea.color} · Talle: ${linea.talle}</p>
-                    <p>Precio unitario: $${producto.precio}</p>
+                <div class="producto-datos">
+                    <h2>${producto.nombre}</h2>
+                    <p><strong>Color:</strong> ${linea.color}<span class="separador-datos">|</span><strong>Talle:</strong> ${linea.talle}</p>
+                    <div class="cantidad-producto">
+                        <span>Cantidad:</span>
+                        <div class="cantidad-controles">
+                            <button type="button" class="boton-cantidad" data-indice="${indice}" data-accion="restar" aria-label="Quitar una unidad de ${producto.nombre}">−</button>
+                            <output>${linea.cantidad}</output>
+                            <button type="button" class="boton-cantidad" data-indice="${indice}" data-accion="sumar" aria-label="Añadir una unidad de ${producto.nombre}">+</button>
+                        </div>
+                    </div>
                 </div>
-                <div>
-                    <span>Cantidad: ${linea.cantidad}</span>
-                    <button type="button" class="boton-eliminar" data-indice="${indice}">Eliminar producto</button>
+                <div class="producto-precio">
+                    <p>Precio unitario</p>
+                    <strong>$${producto.precio}</strong>
+                    <button type="button" class="boton-eliminar" data-indice="${indice}"><span aria-hidden="true">✕</span>Eliminar</button>
                 </div>
             </article>
         `

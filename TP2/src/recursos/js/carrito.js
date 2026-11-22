@@ -131,7 +131,6 @@ function inicializarCarrito(productos) {
 
     const elementos = {
         contador: document.getElementById('productos-seleccionados'),
-        titulo: document.getElementById('titulo-carrito'),
         resumenSubtotal: document.getElementById('resumen-subtotal'),
         resumenEnvio: document.getElementById('resumen-envio'),
         resumenTotal: document.getElementById('resumen-total'),
@@ -144,7 +143,7 @@ function inicializarCarrito(productos) {
     function actualizarVista() {
         const carrito = obtenerCarrito()
         renderizarCarrito(contenedor, carrito, productos, elementos, costoEnvioFijo)
-        enlazarBotonesEliminar(contenedor, actualizarVista)
+        enlazarBotonesProducto(contenedor, actualizarVista)
     }
 
     inicializarCalculoEnvio(botonCalcularEnvio, codigoPostal, elementos.costoEnvioTexto)
@@ -153,11 +152,24 @@ function inicializarCarrito(productos) {
     actualizarVista()
 }
 
-function enlazarBotonesEliminar(contenedor, actualizarVista) {
+function enlazarBotonesProducto(contenedor, actualizarVista) {
     contenedor.querySelectorAll('.boton-eliminar').forEach((boton) => {
         boton.addEventListener('click', () => {
             const nuevoCarrito = obtenerCarrito()
             guardarCarrito(eliminarProducto(nuevoCarrito, Number(boton.dataset.indice)))
+            actualizarVista()
+        })
+    })
+
+    // con estos botones cambiamos la cantidad y se actualiza el total
+    contenedor.querySelectorAll('.boton-cantidad').forEach((boton) => {
+        boton.addEventListener('click', () => {
+            const carrito = obtenerCarrito()
+            const articulo = carrito[Number(boton.dataset.indice)]
+            if (!articulo) return
+            if (boton.dataset.accion === 'sumar') articulo.cantidad += 1
+            if (boton.dataset.accion === 'restar' && articulo.cantidad > 1) articulo.cantidad -= 1
+            guardarCarrito(carrito)
             actualizarVista()
         })
     })
