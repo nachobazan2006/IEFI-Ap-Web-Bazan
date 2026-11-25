@@ -128,13 +128,20 @@
     font-family: "CbaMontserrat", Arial, sans-serif;
     font-size: 14px;
     font-weight: 700;
-    text-decoration: underline;
+    text-decoration: none;
     cursor: pointer;
 }
 
 #boton-limpiar-filtros:hover,
 .enlace-ver-producto:hover {
     color: #a81116;
+}
+
+#boton-limpiar-filtros:hover,
+#boton-limpiar-filtros:focus-visible,
+.enlace-ver-producto:hover,
+.enlace-ver-producto:focus-visible {
+    text-decoration: none;
 }
 
 .productos-catalogo {
@@ -243,6 +250,7 @@
     font-family: "CbaMontserrat", Arial, sans-serif;
     font-size: 11px;
     font-weight: 700;
+    text-decoration: none;
     white-space: nowrap;
 }
 
@@ -295,37 +303,256 @@
     gap: 18px;
 }
 
-.contenido-catalogo dialog {
-    max-width: 420px;
-    margin: auto;
-    padding: 24px;
-    border: 1px solid #111111;
+/* aviso flotante del carrito */
+.notificacion-carrito {
+    position: fixed;
+    top: 96px;
+    right: clamp(112px, 8vw, 148px);
+    z-index: 100;
+    display: grid;
+    width: min(440px, calc(100vw - 32px));
+    gap: 13px;
+    padding: 20px;
+    border: 1px solid rgba(17, 17, 17, 0.06);
+    border-radius: 22px;
     background-color: #ffffff;
-    box-shadow: 0 10px 25px rgba(0, 0, 0, .18);
+    box-shadow: 0 18px 48px rgba(0, 0, 0, 0.18);
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(-8px);
+    transition: opacity 180ms ease, transform 180ms ease;
 }
 
-.contenido-catalogo dialog::backdrop {
-    background-color: rgba(0, 0, 0, .5);
+.notificacion-carrito[hidden] {
+    display: none;
 }
 
-.contenido-catalogo dialog h2 {
-    margin-bottom: 12px;
-    font-family: "CbaPoppins", Arial, sans-serif;
-    font-size: 21px;
+.notificacion-carrito.visible {
+    opacity: 1;
+    pointer-events: auto;
+    transform: translateY(0);
 }
 
-.contenido-catalogo dialog p {
-    margin-bottom: 20px;
+.notificacion-carrito::before {
+    position: absolute;
+    top: -8px;
+    right: 72px;
+    width: 16px;
+    height: 16px;
+    transform: rotate(45deg);
+    background-color: #ffffff;
+    content: "";
 }
 
-.contenido-catalogo dialog button {
-    padding: 10px 16px;
+.notificacion-cerrar {
+    position: absolute;
+    top: 10px;
+    right: 12px;
+    z-index: 1;
+    display: grid;
+    width: 34px;
+    height: 34px;
+    place-items: center;
     border: 0;
-    background-color: #111111;
+    border-radius: 50%;
+    background-color: transparent;
+    color: #111111;
+    font-size: 1.8rem;
+    line-height: 1;
+    cursor: pointer;
+    transition: background-color 160ms ease, color 160ms ease;
+}
+
+.notificacion-cerrar:hover {
+    background-color: #f4f2f1;
+    color: #a81116;
+}
+
+.notificacion-resumen {
+    display: grid;
+    grid-template-columns: 88px minmax(0, 1fr);
+    align-items: center;
+    gap: 14px;
+    padding-right: 40px;
+}
+
+.notificacion-imagen {
+    width: 88px;
+    height: 92px;
+    border-radius: 12px;
+    background-color: #f1f0ef;
+    object-fit: cover;
+}
+
+.notificacion-datos {
+    min-width: 0;
+}
+
+.notificacion-nombre {
+    margin-bottom: 3px;
+    font-family: "CbaPoppins", Arial, sans-serif;
+    font-size: 0.95rem;
+    font-weight: 700;
+    line-height: 1.25;
+    overflow-wrap: anywhere;
+}
+
+.notificacion-opciones {
+    margin-bottom: 3px;
+    color: #333333;
+    font-family: "CbaInstrument", Georgia, serif;
+    font-size: 1.08rem;
+    font-style: italic;
+}
+
+.notificacion-cantidad {
+    margin-bottom: 3px;
+    color: #666666;
+    font-size: 0.9rem;
+}
+
+.notificacion-precio {
+    font-family: "CbaPoppins", Arial, sans-serif;
+    font-size: 1.12rem;
+    font-weight: 700;
+}
+
+.notificacion-confirmacion {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 0 0 11px;
+    border-bottom: 1px solid #dedede;
+    font-family: "CbaPoppins", Arial, sans-serif;
+    font-size: 0.98rem;
+    font-weight: 700;
+}
+
+.notificacion-confirmacion span {
+    display: grid;
+    width: 28px;
+    height: 28px;
+    flex: 0 0 auto;
+    place-items: center;
+    border-radius: 50%;
+    background-color: #a81116;
     color: #ffffff;
+    font-size: 0.95rem;
+}
+
+.notificacion-acciones {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 14px;
+}
+
+.notificacion-seguir {
+    padding: 8px 0;
+    border: 0;
+    border-bottom: 1px solid #a81116;
+    background: transparent;
+    color: #111111;
+    font-family: "CbaInstrument", Georgia, serif;
+    font-size: 1.2rem;
+    font-style: italic;
     cursor: pointer;
 }
 
+.notificacion-ver-carrito {
+    display: inline-flex;
+    min-height: 44px;
+    align-items: center;
+    justify-content: center;
+    gap: 14px;
+    padding: 9px 20px;
+    border-radius: 999px;
+    background-color: #111111;
+    color: #ffffff;
+    font-family: "CbaPoppins", Arial, sans-serif;
+    font-size: 0.88rem;
+    font-weight: 700;
+    text-decoration: none;
+    cursor: pointer;
+    transition: background-color 160ms ease, transform 160ms ease;
+}
+
+.notificacion-ver-carrito:hover {
+    transform: translateY(-2px);
+    background-color: #a81116;
+}
+
+.notificacion-ver-carrito span {
+    display: inline-block;
+    transition: transform 160ms ease;
+}
+
+.notificacion-ver-carrito:hover span {
+    transform: translateX(4px);
+}
+
+.notificacion-carrito button:focus-visible,
+.notificacion-ver-carrito:focus-visible {
+    outline: 2px solid #a81116;
+    outline-offset: 3px;
+}
+
+@media (max-width: 600px) {
+    .notificacion-carrito {
+        top: 88px;
+        right: 12px;
+        width: calc(100vw - 24px);
+        gap: 11px;
+        padding: 16px;
+        border-radius: 20px;
+    }
+
+    .notificacion-carrito::before {
+        right: 34px;
+    }
+
+    .notificacion-resumen {
+        grid-template-columns: 72px minmax(0, 1fr);
+        gap: 10px;
+        padding-right: 32px;
+    }
+
+    .notificacion-imagen {
+        width: 72px;
+        height: 78px;
+        border-radius: 10px;
+    }
+
+    .notificacion-nombre {
+        font-size: 0.92rem;
+    }
+
+    .notificacion-opciones {
+        font-size: 1.05rem;
+    }
+
+    .notificacion-acciones {
+        align-items: stretch;
+        flex-direction: column;
+        gap: 8px;
+    }
+
+    .notificacion-seguir,
+    .notificacion-ver-carrito {
+        width: 100%;
+        min-height: 44px;
+        text-align: center;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .notificacion-carrito,
+    .notificacion-cerrar,
+    .notificacion-ver-carrito,
+    .notificacion-ver-carrito span {
+        transition: none;
+    }
+}
 /* achicamos la grilla de a poco para que las tarjetas no se aplasten */
 @media (max-width: 1450px) {
     .seccion-prendas-catalogo {

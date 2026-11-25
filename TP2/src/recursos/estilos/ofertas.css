@@ -108,7 +108,11 @@
     overflow: hidden;
 }
 
-.tarjeta-oferta > img {
+.enlace-imagen-oferta {
+    display: block;
+}
+
+.enlace-imagen-oferta img {
     width: 100%;
     height: 200px;
     background-color: #eaeaea;
@@ -125,6 +129,17 @@
     font-size: 14px;
     font-weight: 700;
     line-height: 1.25;
+}
+
+.datos-oferta h3 a {
+    color: inherit;
+    text-decoration: none;
+}
+
+.datos-oferta h3 a:hover,
+.datos-oferta h3 a:focus-visible {
+    color: #a81116;
+    text-decoration: underline;
 }
 
 .datos-oferta p {
@@ -328,7 +343,7 @@
         gap: 12px;
     }
 
-    .tarjeta-oferta > img {
+    .enlace-imagen-oferta img {
         height: 155px;
     }
 

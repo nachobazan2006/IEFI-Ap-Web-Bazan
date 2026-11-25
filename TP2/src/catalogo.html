@@ -44,6 +44,25 @@
         </ul>
     </header>
 
+        <!-- aviso flotante para confirmar la compra sin tapar la página -->
+        <aside id="notificacion-carrito" class="notificacion-carrito" role="status" aria-live="polite" aria-atomic="true" hidden>
+            <button class="notificacion-cerrar" type="button" aria-label="Cerrar notificación">×</button>
+            <div class="notificacion-resumen">
+                <img class="notificacion-imagen" src="" alt="">
+                <div class="notificacion-datos">
+                    <h2 class="notificacion-nombre"></h2>
+                    <p class="notificacion-opciones"></p>
+                    <p class="notificacion-cantidad"></p>
+                    <p class="notificacion-precio"></p>
+                </div>
+            </div>
+            <p class="notificacion-confirmacion"><span aria-hidden="true">✓</span> ¡Agregado al carrito!</p>
+            <div class="notificacion-acciones">
+                <button class="notificacion-seguir" type="button">Seguir comprando</button>
+                <a class="notificacion-ver-carrito" href="./carrito.html">Ver carrito <span aria-hidden="true">→</span></a>
+            </div>
+        </aside>
+
     <main class="contenido-catalogo">
         <!-- el banner presenta la colección sin usar una imagen de texto -->
         <section class="presentacion-catalogo" aria-labelledby="titulo-catalogo">
@@ -54,14 +73,6 @@
             </div>
         </section>
 
-        <!-- notificación de compra -->
-        <dialog id="dialogo">
-            <h2>Producto añadido</h2>
-            <p>Se ha añadido la prenda seleccionada al carrito de compras.</p>
-            <form method="dialog">
-                <button>Seguir comprando</button>
-            </form>
-        </dialog>
 
         <div class="cuerpo-catalogo">
             <!-- los filtros quedan a la vista y se aplican al cambiar cada opción -->
@@ -124,14 +135,13 @@
 
     </main>
 
-    <footer class="pie-de-pagina-principal">
-        <nav aria-label="Enlaces institucionales">
+        <footer class="pie-de-pagina-principal">
+        <nav aria-label="Navegación del pie de página">
             <ul>
-                <li>Política de Privacidad</li>
-                <li>Términos y Condiciones</li>
-                <li><a href="contacto.html">Contacto</a></li>
-                <li>Sobre Nosotros</li>
-                <li>Preguntas Frecuentes</li>
+                <li><a href="./index.html">Inicio</a></li>
+                <li><a href="./catalogo.html">Catálogo</a></li>
+                <li><a href="./ofertas.html">Ofertas</a></li>
+                <li><a href="./contacto.html">Contacto</a></li>
             </ul>
         </nav>
         <p>&copy; 2026 cba.urban. Todos los derechos reservados.</p>

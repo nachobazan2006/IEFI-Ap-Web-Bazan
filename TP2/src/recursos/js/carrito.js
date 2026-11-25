@@ -40,8 +40,44 @@ function inicializarDetalleProducto(productos) {
     }
 
     renderizarDetalleProducto(contenedor, producto)
+    inicializarGaleriaProducto(contenedor)
+    inicializarCalculoEnvio(
+        document.getElementById('boton-calcular-envio-producto'),
+        document.getElementById('cp-envio-producto'),
+        document.getElementById('costo-envio-producto')
+    )
     const formulario = document.querySelector('.form-compra')
     formulario?.addEventListener('submit', (evento) => agregarDesdeDetalle(evento, formulario, producto))
+}
+
+function inicializarGaleriaProducto(contenedor) {
+    const imagenPrincipal = contenedor.querySelector('.imagen-producto-principal')
+    const imagenAmpliada = contenedor.querySelector('.imagen-ampliada')
+    const dialogo = contenedor.querySelector('.dialogo-ampliacion')
+    const botonAmpliar = contenedor.querySelector('.boton-ampliar-imagen')
+
+    contenedor.querySelectorAll('.miniatura-producto').forEach((miniatura) => {
+        miniatura.addEventListener('click', () => {
+            contenedor.querySelectorAll('.miniatura-producto').forEach((otraMiniatura) => {
+                otraMiniatura.classList.remove('activa')
+                otraMiniatura.setAttribute('aria-pressed', 'false')
+            })
+
+            miniatura.classList.add('activa')
+            miniatura.setAttribute('aria-pressed', 'true')
+            imagenPrincipal.src = miniatura.dataset.imagen
+            imagenAmpliada.src = miniatura.dataset.imagen
+        })
+    })
+
+    botonAmpliar?.addEventListener('click', () => {
+        imagenAmpliada.src = imagenPrincipal.src
+        dialogo.showModal()
+    })
+
+    dialogo?.addEventListener('click', (evento) => {
+        if (evento.target === dialogo) dialogo.close()
+    })
 }
 
 function agregarDesdeDetalle(evento, formulario, producto) {

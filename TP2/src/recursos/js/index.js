@@ -5,10 +5,19 @@ import { obtenerCarrito, guardarCarrito } from './carrito-persistencia.js'
 import { agregarProducto } from './carrito-reglas.js'
 import { actualizarContadorCarrito } from './carrito-renderizado.js'
 
+let temporizadorNotificacion
+
 async function inicializarCatalogo() {
     const elementos = {
         contenedor: document.getElementById('contenedor-productos'),
-        dialogo: document.getElementById('dialogo'),
+        notificacion: document.getElementById('notificacion-carrito'),
+        notificacionImagen: document.querySelector('.notificacion-imagen'),
+        notificacionNombre: document.querySelector('.notificacion-nombre'),
+        notificacionOpciones: document.querySelector('.notificacion-opciones'),
+        notificacionCantidad: document.querySelector('.notificacion-cantidad'),
+        notificacionPrecio: document.querySelector('.notificacion-precio'),
+        cerrarNotificacion: document.querySelector('.notificacion-cerrar'),
+        seguirComprando: document.querySelector('.notificacion-seguir'),
         contador: document.getElementById('productos-seleccionados'),
         botonLimpiar: document.getElementById('boton-limpiar-filtros'),
         categoria: document.getElementById('filtro-categoria'),
@@ -31,6 +40,8 @@ async function inicializarCatalogo() {
 
     const carrito = obtenerCarrito()
     actualizarContadorCarrito(elementos.contador, carrito)
+    elementos.cerrarNotificacion?.addEventListener('click', () => ocultarNotificacion(elementos.notificacion))
+    elementos.seguirComprando?.addEventListener('click', () => ocultarNotificacion(elementos.notificacion))
 
     function actualizarCatalogo() {
         let productosFiltrados = filtrarPorTexto(productos, elementos.buscar?.value || '')
@@ -72,13 +83,46 @@ function enlazarEventosProductos(elementos, productos, carrito) {
             carrito.splice(0, carrito.length, ...carritoActualizado)
             guardarCarrito(carrito)
             actualizarContadorCarrito(elementos.contador, carrito)
-            elementos.dialogo?.showModal()
+            mostrarNotificacion(elementos, producto, articulo)
         })
     })
 
     elementos.contenedor.querySelectorAll('.enlace-ver-producto').forEach((enlace) => {
         enlace.addEventListener('click', () => localStorage.setItem('productoSeleccionado', parseInt(enlace.dataset.id)))
     })
+}
+
+// muestra el producto agregado y cierra el aviso a los cinco segundos
+function mostrarNotificacion(elementos, producto, articulo) {
+    const notificacion = elementos.notificacion
+    if (!notificacion || !elementos.notificacionImagen || !elementos.notificacionNombre
+        || !elementos.notificacionOpciones || !elementos.notificacionCantidad || !elementos.notificacionPrecio) return
+
+    window.clearTimeout(temporizadorNotificacion)
+    elementos.notificacionImagen.src = producto.imagen
+    elementos.notificacionImagen.alt = producto.nombre
+    elementos.notificacionNombre.textContent = producto.nombre
+    elementos.notificacionOpciones.textContent = `${articulo.color}, Talle ${articulo.talle}`
+    elementos.notificacionCantidad.textContent = `Cantidad: ${articulo.cantidad}`
+    elementos.notificacionPrecio.textContent = new Intl.NumberFormat('es-AR', {
+        style: 'currency',
+        currency: 'ARS',
+        maximumFractionDigits: 0
+    }).format(producto.precio)
+
+    notificacion.hidden = false
+    window.requestAnimationFrame(() => notificacion.classList.add('visible'))
+    temporizadorNotificacion = window.setTimeout(() => ocultarNotificacion(notificacion), 5000)
+}
+
+function ocultarNotificacion(notificacion) {
+    if (!notificacion) return
+
+    window.clearTimeout(temporizadorNotificacion)
+    notificacion.classList.remove('visible')
+    window.setTimeout(() => {
+        if (!notificacion.classList.contains('visible')) notificacion.hidden = true
+    }, 180)
 }
 
 function enlazarEventosFiltros(elementos, actualizarCatalogo) {
