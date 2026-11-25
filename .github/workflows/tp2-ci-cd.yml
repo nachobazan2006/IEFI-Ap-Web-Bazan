@@ -32,9 +32,6 @@ jobs:
     needs: pruebas
     if: github.event_name == 'push' && github.ref == 'refs/heads/master' && vars.HABILITAR_DESPLIEGUE == 'true'
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: TP2
     env:
       VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
       VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
